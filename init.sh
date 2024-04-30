@@ -22,7 +22,6 @@ sudo pkgx install rustup;
 
 sudo pkgx install hx;
 sudo pkgx install gh;
-sudo pkgx install zoxide;
 sudo pkgx install exa;
 sudo pkgx install rg;
 sudo pkgx install fd;

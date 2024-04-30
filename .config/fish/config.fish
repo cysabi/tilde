@@ -2,8 +2,14 @@ function ..    ; cd .. ; end
 function ...   ; cd ../.. ; end
 function ....  ; cd ../../.. ; end
 function ..... ; cd ../../../.. ; end
+function o
+    if test (count $argv) -eq 0
+        explorer.exe .
+    else
+        explorer.exe $argv
+    end
+end
 
-alias o 'if test (count $argv) -eq 0; explorer.exe .; else; explorer.exe $argv; end'
 alias path 'echo "#  "; printf "%s\n" (string split \n $PATH)'
 alias md 'mkdir -p $argv; and cd $_'
 alias mv 'command mv --interactive --verbose'
@@ -30,8 +36,9 @@ alias lr 'exa --color auto -lR'
 alias lt 'exa --color auto -lT'
 
 set -x EDITOR "hx"
+set -g fish_greeting ""
+
 alias g 'git'
-alias diff 'git diff --no-index --color-words "$@"'
 set GIT_AUTHOR_NAME "cysabi"
 set GIT_AUTHOR_EMAIL "47790183+cysabi@users.noreply.github.com"
 set GIT_COMMITTER_NAME "$GIT_AUTHOR_NAME"
@@ -39,13 +46,4 @@ set GIT_COMMITTER_EMAIL "$GIT_AUTHOR_EMAIL"
 git config --global user.name "$GIT_AUTHOR_NAME"
 git config --global user.email "$GIT_AUTHOR_EMAIL"
 
-fish_add_path ~/.bin
-fish_add_path ~/.cargo/bin
-fish_add_path -m /bin
-fish_add_path -m /usr/bin
-fish_add_path -m ~/.local/bin
-
 starship init fish | source
-zoxide init fish | source
-
-# === LOCAL CHANGES ===
