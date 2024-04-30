@@ -3,29 +3,28 @@
 sudo apt-add-repository ppa:fish-shell/release-3;
 sudo apt update;
 sudo apt upgrade;
-sudo apt-get install fish;
+sudo apt-get install fish exa neofetch;
 git pull;
 
 rsync --exclude ".git/" \
   --exclude "init.sh" \
   -avh --no-perms . ~;
 
-curl -fsS https://starship.rs/install.sh | sh
-curl -fsS https://pkgx.sh | sh;
+curl https://get.docker.com | sh
+curl https://starship.rs/install.sh | sh
+curl https://mise.run | sh
+echo '~/.local/bin/mise activate fish | source' >> ~/.config/fish/config.fish
 
-sudo pkgx install docker;
+# need helix
 
-sudo pkgx install bun;
-sudo pkgx install node;
-sudo pkgx install python;
-sudo pkgx install rustup;
+~/.local/bin/mise use bun
+~/.local/bin/mise use node
+~/.local/bin/mise use gleam
+~/.local/bin/mise use python
+~/.local/bin/mise use rust
 
-sudo pkgx install hx;
-sudo pkgx install gh;
-sudo pkgx install exa;
-sudo pkgx install rg;
-sudo pkgx install fd;
-sudo pkgx install bat;
-sudo pkgx install btm;
-sudo pkgx install tv;
-sudo pkgx install neofetch;
+~/.local/bin/mise use github-cli
+~/.local/bin/mise use ripgrep
+~/.local/bin/mise use fd
+~/.local/bin/mise use bat
+~/.local/bin/mise use bottom
