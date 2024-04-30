@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-sudo apt-add-repository ppa:fish-shell/release-3;
-sudo apt update;
-sudo apt upgrade;
-sudo apt-get install fish exa neofetch;
+apt-add-repository ppa:fish-shell/release-3;
+apt update;
+apt upgrade;
+apt-get install fish exa neofetch;
 git pull;
 
 rsync --exclude ".git/" \
