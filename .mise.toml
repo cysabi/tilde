@@ -1,0 +1,11 @@
+[tools]
+bun = "latest"
+node = "latest"
+gleam = "latest"
+python = "latest"
+rust = "latest"
+github-cli = "latest"
+ripgrep = "latest"
+fd = "latest"
+bat = "latest"
+bottom = "latest"
