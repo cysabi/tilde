@@ -3,18 +3,26 @@ function ...   ; cd ../.. ; end
 function ....  ; cd ../../.. ; end
 function ..... ; cd ../../../.. ; end
 function o
-    if test (count $argv) -eq 0
-        explorer.exe .
-    else
-        explorer.exe $argv
-    end
+  if test (count $argv) -eq 0
+    explorer.exe .
+  else
+    explorer.exe $argv
+  end
+end
+function mv
+  command mv --interactive --verbose $argv
+end
+
+function rm
+  command rm --interactive --verbose $argv
+end
+
+function cp
+  command cp --interactive --verbose $argv
 end
 
 alias path 'echo "#  "; printf "%s\n" (string split \n $PATH)'
 alias md 'mkdir -p $argv; and cd $_'
-alias mv 'command mv --interactive --verbose'
-alias rm 'command rm --interactive --verbose'
-alias cp 'command cp --interactive --verbose'
 alias dcp 'docker compose'
 alias clr 'clear'
 alias map 'xargs -n1'
