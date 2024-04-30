@@ -13,20 +13,20 @@ rsync --exclude ".git/" \
 curl -fsS https://starship.rs/install.sh | sh
 curl -fsS https://pkgx.sh | sh;
 
-pkgx install docker;
+sudo pkgx install docker;
 
-pkgx install bun;
-pkgx install node;
-pkgx install python;
-pkgx install rustup;
+sudo pkgx install bun;
+sudo pkgx install node;
+sudo pkgx install python;
+sudo pkgx install rustup;
 
-pkgx install hx;
-pkgx install gh;
-pkgx install zoxide;
-pkgx install exa;
-pkgx install rg;
-pkgx install fd;
-pkgx install bat;
-pkgx install btm;
-pkgx install tv;
-pkgx install neofetch;
+sudo pkgx install hx;
+sudo pkgx install gh;
+sudo pkgx install zoxide;
+sudo pkgx install exa;
+sudo pkgx install rg;
+sudo pkgx install fd;
+sudo pkgx install bat;
+sudo pkgx install btm;
+sudo pkgx install tv;
+sudo pkgx install neofetch;
