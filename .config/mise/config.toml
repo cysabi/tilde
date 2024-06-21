@@ -1,0 +1,22 @@
+[tools]
+bun = "latest"
+node = "latest"
+rust = "latest"
+gleam = "latest"
+python = "3.11"
+
+github-cli = "latest"
+yt-dlp = "latest"
+cargo-binstall = "latest"
+
+"cargo:eza" = "latest"
+"cargo:fd-find" = "latest"
+"cargo:ripgrep" = "latest"
+"cargo:du-dust" = "latest"
+"cargo:bottom" = "latest"
+"cargo:procs" = "latest"
+"cargo:bat" = "latest"
+
+[settings]
+experimental = true
+# not_found_auto_install = true

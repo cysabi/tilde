@@ -13,14 +13,15 @@ read -p "install packages? [y/n] " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
+  git pull;
   apt-add-repository ppa:fish-shell/release-3;
-  add-apt-repository ppa:maveonair/helix-editor
   apt update;
   apt upgrade;
-  apt-get install fish helix exa neofetch;
-  git pull;
+  apt-get install fish;
 
   curl https://starship.rs/install.sh | sh
-  curl https://mise.run | sh
   curl https://get.docker.com | sh
+  curl https://mise.run | sh
+
+  mise install
 fi
