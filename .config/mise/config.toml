@@ -17,6 +17,9 @@ cargo-binstall = "latest"
 "cargo:procs" = "latest"
 "cargo:bat" = "latest"
 
+[plugins]
+helix = 'https://github.com/CSergienko/asdf-helix'
+
 [settings]
 experimental = true
 # not_found_auto_install = true

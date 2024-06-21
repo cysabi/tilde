@@ -51,7 +51,7 @@ alias ps 'procs'
 alias du 'dust'
 alias top 'btm'
 
-set -x EDITOR "vim"
+set -x EDITOR "hx"
 set -g fish_greeting ""
 
 alias g 'git'
