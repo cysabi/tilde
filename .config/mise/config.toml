@@ -17,6 +17,8 @@ cargo-binstall = "latest"
 "cargo:procs" = "latest"
 "cargo:bat" = "latest"
 
+helix = "latest"
+
 [plugins]
 helix = 'https://github.com/CSergienko/asdf-helix'
 
