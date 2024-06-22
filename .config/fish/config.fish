@@ -16,7 +16,7 @@ function mv
 end
 
 function rm
-  command rm -v -p -i $argv
+  command rm -v -i $argv
 end
 
 function cp
