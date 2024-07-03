@@ -27,7 +27,6 @@ function md
   command mkdir -v -p $argv; cd $argv
 end
 
-alias cdc 'cd /mnt/c/Users/cyrusekii'
 alias path 'echo "#  "; printf "%s\n" (string split \n $PATH)'
 alias clr 'clear'
 alias dcp 'docker compose'
@@ -46,6 +45,7 @@ alias ps 'procs'
 alias du 'dust'
 alias top 'btm'
 
+set C "/mnt/c/Users/cyrusekii"
 set -x EDITOR "hx"
 set -g fish_greeting ""
 
