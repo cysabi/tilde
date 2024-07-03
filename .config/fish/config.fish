@@ -27,17 +27,12 @@ function md
   command mkdir -v -p $argv; cd $argv
 end
 
+alias cdc 'cd /mnt/c/Users/cyrusekii'
 alias path 'echo "#  "; printf "%s\n" (string split \n $PATH)'
-alias dcp 'docker compose'
 alias clr 'clear'
-alias map 'xargs -n1'
-alias dig 'dig +nocmd any +multiline +noall +answer'
+alias dcp 'docker compose'
 alias ip "dig +short myip.opendns.com @resolver1.opendns.com"
-alias ips "ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
-alias localip 'powershell.exe ipconfig | r \"Address..*192.168.1.\"'
-alias ifactive "ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
 
-alias l 'eza --color auto'
 alias ll 'eza --color auto -l'
 alias la 'eza --color auto -la'
 alias ld 'eza --color auto -lD'
