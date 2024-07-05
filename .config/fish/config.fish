@@ -12,7 +12,7 @@ function o
 end
 
 function mv
-  command mv -v -p -i $argv
+  command mv -v -i $argv
 end
 
 function rm
