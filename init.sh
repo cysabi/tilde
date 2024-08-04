@@ -17,11 +17,15 @@ then
   apt-add-repository ppa:fish-shell/release-3;
   apt update;
   apt upgrade;
-  apt-get install fish;
+  apt install fish build-essential;
 
   curl https://starship.rs/install.sh | sh
   curl https://get.docker.com | sh
   curl https://mise.run | sh
+  curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
 
-  mise install
 fi
+
+fish
+cargo install eza fd-find ripgrep du-dust bottom procs bat
+mise install

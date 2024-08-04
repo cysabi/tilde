@@ -7,16 +7,6 @@ python = "3.11"
 
 github-cli = "latest"
 yt-dlp = "latest"
-cargo-binstall = "latest"
-
-"cargo:eza" = "latest"
-"cargo:fd-find" = "latest"
-"cargo:ripgrep" = "latest"
-"cargo:du-dust" = "latest"
-"cargo:bottom" = "latest"
-"cargo:procs" = "latest"
-"cargo:bat" = "latest"
-
 helix = "latest"
 
 [plugins]
