@@ -45,7 +45,7 @@ alias ps 'procs'
 alias du 'dust'
 alias top 'btm'
 
-set C "/mnt/c/Users/cyrusekii"
+set C "/mnt/c/Users/cysabi"
 set -x EDITOR "hx"
 set -g fish_greeting ""
 
