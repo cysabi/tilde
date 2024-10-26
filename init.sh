@@ -17,7 +17,7 @@ then
   apt-add-repository ppa:fish-shell/release-3;
   apt update;
   apt upgrade;
-  apt install fish build-essential;
+  apt install fish build-essential pkg-config libncursesw5-dev libreadline-dev;
 
   curl https://starship.rs/install.sh | sh
   curl https://get.docker.com | sh

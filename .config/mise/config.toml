@@ -5,10 +5,8 @@ node = "latest"
 rust = "latest"
 gleam = "latest"
 python = "3.11"
-
 github-cli = "latest"
 yt-dlp = "latest"
-
 "cargo:eza" = "latest"
 "cargo:fd-find" = "latest"
 "cargo:ripgrep" = "latest"
@@ -16,5 +14,9 @@ yt-dlp = "latest"
 "cargo:bottom" = "latest"
 "cargo:procs" = "latest"
 "cargo:bat" = "latest"
+helix = "latest"
+nnn = "latest"
 
- "ubi:helix-editor/helix" = "latest"
+[plugins]
+helix = "https://github.com/CSergienko/asdf-helix"
+nnn = "https://github.com/benit8/asdf-nnn"
