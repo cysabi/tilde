@@ -27,5 +27,4 @@ then
 fi
 
 fish
-cargo install eza fd-find ripgrep du-dust bottom procs bat
 mise install

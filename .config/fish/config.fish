@@ -45,17 +45,18 @@ alias ps 'procs'
 alias du 'dust'
 alias top 'btm'
 
-set C "/mnt/c/Users/cysabi"
-set -x EDITOR "hx"
-set -g fish_greeting ""
-
 alias g 'git'
+
 set GIT_AUTHOR_NAME "cysabi"
 set GIT_AUTHOR_EMAIL "47790183+cysabi@users.noreply.github.com"
 set GIT_COMMITTER_NAME "$GIT_AUTHOR_NAME"
 set GIT_COMMITTER_EMAIL "$GIT_AUTHOR_EMAIL"
 git config --global user.name "$GIT_AUTHOR_NAME"
 git config --global user.email "$GIT_AUTHOR_EMAIL"
+
+set C "/mnt/c/Users/cysabi"
+set -g EDITOR "hx"
+set -g fish_greeting ""
 
 starship init fish | source
 atuin init fish | source
