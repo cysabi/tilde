@@ -26,7 +26,7 @@ function o
     end
 
     # translate realpath to valid file explorer path
-    if string match -r "^/mnt/c/" $FP
+    if string match -rq "^/mnt/c/" $FP
         set -f FP (string replace -r "^/mnt/c/" "C:/" $FP)
     else
         set -f FP (string join '' "\\\\wsl.localhost\Ubuntu" $FP)
