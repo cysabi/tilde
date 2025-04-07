@@ -12,11 +12,27 @@ function .....
 end
 
 function o
-    if test (count $argv) -eq 0
-        explorer.exe .
+    # figure out which program to use
+    if command -q files-stable.exe
+        set -f PRGM files-stable.exe
     else
-        explorer.exe (echo $argv | string replace "/" "\\\\")
+        set -f PRGM explorer.exe
     end
+
+    # get the directory to open
+    set -f FP (realpath .)
+    if test (count $argv) = 1
+        set -f FP (realpath $argv)
+    end
+
+    # translate realpath to valid file explorer path
+    if string match -r "^/mnt/c/" $FP
+        set -f FP (string replace -r "^/mnt/c/" "C:/" $FP)
+    else
+        set -f FP (string join '' "\\\\wsl.localhost\Ubuntu" $FP)
+    end
+
+    $PRGM $FP
 end
 
 function mv
@@ -39,6 +55,7 @@ end
 alias path 'echo "#  "; printf "%s\n" (string split \n $PATH)'
 alias clr clear
 alias dcp 'docker compose'
+alias dock 'sudo systemctl start docker.service'
 alias ip "dig +short myip.opendns.com @resolver1.opendns.com"
 
 alias ll 'eza --color auto -l'
