@@ -17,6 +17,7 @@ helix = "latest"
 "cargo:bat" = "latest"
 "cargo:zellij" = "latest"
 "ubi:sxyazi/yazi" = "latest"
+go = "latest"
 
-[plugins]
-helix = "https://github.com/CSergienko/asdf-helix"
+[alias]
+helix = "asdf:https://github.com/CSergienko/asdf-helix"
