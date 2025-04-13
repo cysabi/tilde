@@ -58,20 +58,9 @@ alias dcp 'docker compose'
 alias dock 'sudo systemctl start docker.service'
 alias ip "dig +short myip.opendns.com @resolver1.opendns.com"
 
-alias ll 'eza --color auto -l'
-alias la 'eza --color auto -la'
-alias ld 'eza --color auto -lD'
-alias lr 'eza --color auto -lR'
-alias lt 'eza --color auto -lT'
-
+alias ls 'eza -1TL1 --group-directories-first'
 alias cat 'bat --paging=never --plain --theme base16'
-alias grep ripgrep
-alias find fd
-alias ps procs
-alias du dust
-alias top btm
-
-alias g git
+alias grep rg
 
 set GIT_AUTHOR_NAME cysabi
 set GIT_AUTHOR_EMAIL "47790183+cysabi@users.noreply.github.com"
