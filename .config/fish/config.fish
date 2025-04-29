@@ -56,7 +56,7 @@ alias path 'echo "#  "; printf "%s\n" (string split \n $PATH)'
 alias clr clear
 alias dcp 'docker compose'
 alias dock 'sudo systemctl start docker.service'
-alias ip "dig +short myip.opendns.com @resolver1.opendns.com"
+alias whatsmyip "dig +short myip.opendns.com @resolver1.opendns.com"
 
 alias ls 'eza -1TL1 --group-directories-first'
 alias cat 'bat --paging=never --plain --theme base16'
