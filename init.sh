@@ -19,10 +19,10 @@ then
   apt upgrade;
   apt install fish build-essential;
 
-  curl https://starship.rs/install.sh | sh
-  curl https://get.docker.com | sh
-  curl https://mise.run | sh
-  curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
+  curl --proto '=https' -sS https://starship.rs/install.sh | sh
+  curl --proto '=https' -sS https://get.docker.com | sh
+  curl --proto '=https' -sS https://mise.run | sh
+  curl --proto '=https' -sS https://setup.atuin.sh | sh
 
 fi
 
