@@ -71,6 +71,7 @@ git config --global user.email "$GIT_AUTHOR_EMAIL"
 
 set C /mnt/c/Users/cysabi
 set -gx EDITOR hx
+set -gx COLORTERM truecolor
 set -g fish_greeting ""
 
 starship init fish | source
