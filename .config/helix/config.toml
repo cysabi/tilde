@@ -6,30 +6,21 @@ true-color = true
 color-modes = true
 scroll-lines = 1
 cursorline = true
+lsp.display-messages = true
+lsp.display-inlay-hints = true
+file-picker.hidden = false
+file-picker.ignore = false
+file-picker.git-ignore = false
 
 [editor.cursor-shape]
-insert = "bar"
 normal = "block"
+insert = "bar"
 select = "underline"
 
 [editor.statusline]
-left = ["mode", "spinner", "file-name", "version-control"]
+left = ["mode", "spinner", "file-absolute-path", "read-only-indicator", "file-modification-indicator", "version-control"]
 center = []
 right = ["selections", "primary-selection-length", "spacer", "position", "total-line-numbers", "file-encoding", "spacer", "diagnostics", "workspace-diagnostics"]
 mode.normal = "normal"
 mode.insert = "insert"
 mode.select = "select"
-
-[editor.lsp]
-display-messages = true
-display-inlay-hints = true
-
-[keys.normal]
-"#" = "toggle_comments"
-C-c = "no_op"
-
-A-j = ["extend_to_line_bounds", "delete_selection", "paste_after"]
-A-k = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
-
-[keys.normal.space]
-o = ":sh zellij run -c -f -x 10% -y 10% --width 80% --height 80% -- bash ~/.config/helix/yazi-picker.sh open"
