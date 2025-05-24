@@ -1,15 +1,7 @@
-function ..
-    cd ..
+function dotdotdot
+    echo cd (string repeat -n (math (string length -- $argv[1]) - 1) ../)
 end
-function ...
-    cd ../..
-end
-function ....
-    cd ../../..
-end
-function .....
-    cd ../../../..
-end
+abbr --add dotdot --regex '^\.\.+$' --function dotdotdot
 
 function o
     # figure out which program to use
@@ -76,4 +68,3 @@ set -g fish_greeting ""
 
 starship init fish | source
 atuin init fish | source
-~/.local/bin/mise activate fish | source
