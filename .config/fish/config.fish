@@ -28,19 +28,19 @@ function o
 end
 
 function mv
-    command mv -v -i $argv
+    command mv -vI $argv
 end
 
 function rm
-    command rm -v -i $argv
+    command rm -vI $argv
 end
 
 function cp
-    command cp -v -p -i $argv
+    command cp -vip $argv
 end
 
 function md
-    command mkdir -v -p $argv
+    command mkdir -vp $argv
     cd $argv
 end
 
@@ -68,3 +68,4 @@ set -g fish_greeting ""
 
 starship init fish | source
 atuin init fish | source
+~/.local/bin/mise activate fish --shims | source
