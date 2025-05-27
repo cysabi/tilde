@@ -1,16 +1,22 @@
 [tools]
+# env
 bun = "latest"
 node = "22"
 go = "latest"
 uv = "latest"
 rust = "latest"
 gleam = "latest"
+
+# term
+helix = "latest"
+yazi = "latest"
+fzf = "latest"
+gitui = "latest"
+fd = "latest"
+bat = "latest"
+ripgrep = "latest"
+eza = "latest"
+
+# tools
 github-cli = "latest"
 yt-dlp = "latest"
-helix = "latest"
-"cargo:eza" = "latest"
-"cargo:bat" = "latest"
-"cargo:ripgrep" = "latest"
-
-[alias]
-helix = "asdf:https://github.com/CSergienko/asdf-helix"

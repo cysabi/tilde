@@ -4,27 +4,30 @@ end
 abbr --add dotdot --regex '^\.\.+$' --function dotdotdot
 
 function o
-    # figure out which program to use
-    if command -q files-stable.exe
-        set -f PRGM files-stable.exe
-    else
-        set -f PRGM explorer.exe
-    end
-
     # get the directory to open
     set -f FP (realpath .)
     if test (count $argv) = 1
         set -f FP (realpath $argv)
     end
 
-    # translate realpath to valid file explorer path
+    # translate path to valid file explorer path
     if string match -rq "^/mnt/c/" $FP
         set -f FP (string replace -r "^/mnt/c/" "C:/" $FP)
     else
-        set -f FP (string join '' "\\\\wsl.localhost\Ubuntu" $FP)
+        set -f FP (string join '' "//wsl.localhost/Ubuntu" $FP)
     end
 
-    $PRGM $FP
+    set -f FP (string replace -a "/" "\\" $FP)
+    explorer.exe $FP
+end
+
+function l
+	set tmp (mktemp -t "yazi-cwd.XXXXXX")
+	yazi $argv --cwd-file="$tmp"
+	if read -z cwd < "$tmp"; and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+		builtin cd -- "$cwd"
+	end
+	command rm -f -- "$tmp"
 end
 
 function mv
