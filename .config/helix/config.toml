@@ -99,13 +99,13 @@ select.C-Z = ["redo"]
 insert.C-Z = ["redo"]
 
 # up and down
-normal.C-j = ["extend_line_down", "extend_to_line_bounds"]
-select.C-j = ["extend_line_down", "extend_to_line_bounds"]
-insert.C-j = ["extend_line_down", "extend_to_line_bounds"]
+normal.A-J = ["extend_line_down", "extend_to_line_bounds"]
+select.A-J = ["extend_line_down", "extend_to_line_bounds"]
+insert.A-J = ["extend_line_down", "extend_to_line_bounds"]
 
-normal.C-k = ["extend_line_up", "extend_to_line_bounds"]
-select.C-k = ["extend_line_up", "extend_to_line_bounds"]
-insert.C-k = ["extend_line_up", "extend_to_line_bounds"]
+normal.A-K = ["extend_line_up", "extend_to_line_bounds"]
+select.A-K = ["extend_line_up", "extend_to_line_bounds"]
+insert.C-K = ["extend_line_up", "extend_to_line_bounds"]
 
 normal.A-j = ["ensure_selections_forward", "extend_to_line_bounds", "extend_char_right", "extend_char_left", "delete_selection", "add_newline_below", "move_line_down", "replace_with_yanked"]
 select.A-j = ["ensure_selections_forward", "extend_to_line_bounds", "extend_char_right", "extend_char_left", "delete_selection", "add_newline_below", "move_line_down", "replace_with_yanked"]
