@@ -47,6 +47,7 @@ function md
     cd $argv
 end
 
+alias gits 'lazygit'
 alias path 'echo "#  "; printf "%s\n" (string split \n $PATH)'
 alias clr clear
 alias dcp 'docker compose'
