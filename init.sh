@@ -28,3 +28,4 @@ fi
 
 fish
 mise install
+gh auth setup-git
