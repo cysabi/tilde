@@ -3,6 +3,23 @@ function dotdotdot
 end
 abbr --add dotdot --regex '^\.\.+$' --function dotdotdot
 
+function mv
+    command mv -vI $argv
+end
+
+function rm
+    command rm -vI $argv
+end
+
+function cp
+    command cp -vip $argv
+end
+
+function md
+    command mkdir -vp $argv
+    cd $argv
+end
+
 function o
     # get the directory to open
     set -f FP (realpath .)
@@ -22,41 +39,23 @@ function o
 end
 
 function l
-	set tmp (mktemp -t "yazi-cwd.XXXXXX")
-	yazi $argv --cwd-file="$tmp"
-	if read -z cwd < "$tmp"; and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
-		builtin cd -- "$cwd"
-	end
-	command rm -f -- "$tmp"
+    set tmp (mktemp -t "yazi-cwd.XXXXXX")
+    yazi $argv --cwd-file="$tmp"
+    if read -z cwd <"$tmp"; and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+        builtin cd -- "$cwd"
+    end
+    command rm -f -- "$tmp"
 end
-
-function mv
-    command mv -vI $argv
-end
-
-function rm
-    command rm -vI $argv
-end
-
-function cp
-    command cp -vip $argv
-end
-
-function md
-    command mkdir -vp $argv
-    cd $argv
-end
-
-alias gits 'lazygit'
-alias path 'echo "#  "; printf "%s\n" (string split \n $PATH)'
-alias clr clear
-alias dcp 'docker compose'
-alias dock 'sudo systemctl start docker.service'
-alias whatsmyip "dig +short myip.opendns.com @resolver1.opendns.com"
 
 alias ls 'eza -1TL1 --group-directories-first'
 alias cat 'bat --paging=never --plain --theme base16'
 alias grep rg
+alias find fd
+alias g lazygit
+
+alias dcp 'docker compose'
+alias path 'echo "#  "; printf "%s\n" (string split \n $PATH)'
+alias whatsmyip "dig +short myip.opendns.com @resolver1.opendns.com"
 
 set GIT_AUTHOR_NAME cysabi
 set GIT_AUTHOR_EMAIL "47790183+cysabi@users.noreply.github.com"
