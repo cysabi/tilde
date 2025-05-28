@@ -35,21 +35,54 @@ inline-diagnostics.cursor-line = "info"
 
 [keys]
 
-# extending defaults
+# h j k l
+normal.A-j = ["ensure_selections_forward", "extend_to_line_bounds", "extend_char_right", "extend_char_left", "delete_selection", "add_newline_below", "move_line_down", "replace_with_yanked"]
+select.A-j = ["ensure_selections_forward", "extend_to_line_bounds", "extend_char_right", "extend_char_left", "delete_selection", "add_newline_below", "move_line_down", "replace_with_yanked"]
+insert.A-j = ["ensure_selections_forward", "extend_to_line_bounds", "extend_char_right", "extend_char_left", "delete_selection", "add_newline_below", "move_line_down", "replace_with_yanked"]
+
+normal.A-k = ["ensure_selections_forward", "flip_selections", "extend_to_line_bounds", "extend_char_right", "extend_char_left", "delete_selection", "move_line_up", "add_newline_above", "move_line_up", "replace_with_yanked"]
+select.A-k = ["ensure_selections_forward", "flip_selections", "extend_to_line_bounds", "extend_char_right", "extend_char_left", "delete_selection", "move_line_up", "add_newline_above", "move_line_up", "replace_with_yanked"]
+insert.A-k = ["ensure_selections_forward", "flip_selections", "extend_to_line_bounds", "extend_char_right", "extend_char_left", "delete_selection", "move_line_up", "add_newline_above", "move_line_up", "replace_with_yanked"]
+
+normal.A-J = ["extend_line_down", "extend_to_line_bounds"]
+select.A-J = ["extend_line_down", "extend_to_line_bounds"]
+insert.A-J = ["extend_line_down", "extend_to_line_bounds"]
+
+normal.A-K = ["extend_line_up", "extend_to_line_bounds"]
+insert.A-K = ["extend_line_up", "extend_to_line_bounds"]
+select.A-K = ["extend_line_up", "extend_to_line_bounds"]
+
+normal.C-A-j = ["ensure_selections_forward", "extend_to_line_bounds", "extend_char_right", "extend_char_left", "yank", "add_newline_below", "move_line_down", "replace_with_yanked"]
+select.C-A-j = ["ensure_selections_forward", "extend_to_line_bounds", "extend_char_right", "extend_char_left", "yank", "add_newline_below", "move_line_down", "replace_with_yanked"]
+insert.C-A-j = ["ensure_selections_forward", "extend_to_line_bounds", "extend_char_right", "extend_char_left", "yank", "add_newline_below", "move_line_down", "replace_with_yanked"]
+
+normal.C-A-k = ["ensure_selections_forward", "flip_selections", "extend_to_line_bounds", "extend_char_right", "extend_char_left", "yank", "add_newline_above", "move_line_up", "replace_with_yanked"]
+select.C-A-k = ["ensure_selections_forward", "flip_selections", "extend_to_line_bounds", "extend_char_right", "extend_char_left", "yank", "add_newline_above", "move_line_up", "replace_with_yanked"]
+insert.C-A-k = ["ensure_selections_forward", "flip_selections", "extend_to_line_bounds", "extend_char_right", "extend_char_left", "yank", "add_newline_above", "move_line_up", "replace_with_yanked"]
+
+normal.A-h = "goto_line_start"
+select.A-h = "goto_line_start"
+insert.A-h = "goto_line_start"
+
+normal.A-l = "goto_line_end"
+select.A-l = "goto_line_end"
+insert.A-l = "goto_line_end"
+
 normal.H = "expand_selection"
 select.H = "expand_selection"
-
-normal.J = "select_next_sibling"
-select.J = "select_next_sibling"
-
-normal.K = "select_prev_sibling"
-select.K = "select_prev_sibling"
+insert.H = "expand_selection"
 
 normal.L = "shrink_selection"
 select.L = "shrink_selection"
+insert.L = "shrink_selection"
 
-normal.X = "extend_line_above"
-select.X = "extend_line_above"
+normal.J = "select_next_sibling"
+select.J = "select_next_sibling"
+insert.J = "select_next_sibling"
+
+normal.K = "select_prev_sibling"
+select.K = "select_prev_sibling"
+insert.K = "select_prev_sibling"
 
 # nicer selections
 normal.esc = ["collapse_selection", "keep_primary_selection"]
@@ -58,6 +91,9 @@ normal.a = ["collapse_selection", "append_mode"]
 
 select.i = ["collapse_selection", "insert_mode"]
 select.a = ["collapse_selection", "append_mode"]
+
+normal.X = "extend_line_above"
+select.X = "extend_line_above"
 
 # commands
 normal.C-r = [":config-reload", ":reload"]
@@ -97,26 +133,10 @@ normal.C-Z = ["redo"]
 select.C-Z = ["redo"]
 insert.C-Z = ["redo"]
 
-# up and down
-normal.A-J = ["extend_line_down", "extend_to_line_bounds"]
-select.A-J = ["extend_line_down", "extend_to_line_bounds"]
-insert.A-J = ["extend_line_down", "extend_to_line_bounds"]
-
-normal.A-K = ["extend_line_up", "extend_to_line_bounds"]
-select.A-K = ["extend_line_up", "extend_to_line_bounds"]
-insert.C-K = ["extend_line_up", "extend_to_line_bounds"]
-
-normal.A-j = ["ensure_selections_forward", "extend_to_line_bounds", "extend_char_right", "extend_char_left", "delete_selection", "add_newline_below", "move_line_down", "replace_with_yanked"]
-select.A-j = ["ensure_selections_forward", "extend_to_line_bounds", "extend_char_right", "extend_char_left", "delete_selection", "add_newline_below", "move_line_down", "replace_with_yanked"]
-insert.A-j = ["ensure_selections_forward", "extend_to_line_bounds", "extend_char_right", "extend_char_left", "delete_selection", "add_newline_below", "move_line_down", "replace_with_yanked"]
-
-normal.A-k = ["ensure_selections_forward", "extend_to_line_bounds", "extend_char_right", "extend_char_left", "delete_selection", "move_line_up", "add_newline_above", "move_line_up", "replace_with_yanked"]
-select.A-k = ["ensure_selections_forward", "extend_to_line_bounds", "extend_char_right", "extend_char_left", "delete_selection", "move_line_up", "add_newline_above", "move_line_up", "replace_with_yanked"]
-insert.A-k = ["ensure_selections_forward", "extend_to_line_bounds", "extend_char_right", "extend_char_left", "delete_selection", "move_line_up", "add_newline_above", "move_line_up", "replace_with_yanked"]
-
 # disable arrows
 normal.A-up = "no_op"
 normal.A-down = "no_op"
 normal.A-left = "no_op"
 normal.A-right = "no_op"
 normal.A-S-down = "no_op"
+

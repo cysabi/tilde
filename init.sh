@@ -23,9 +23,7 @@ then
   curl --proto '=https' -sS https://get.docker.com | sh
   curl --proto '=https' -sS https://mise.run | sh
   curl --proto '=https' -sS https://setup.atuin.sh | sh
-
 fi
 
-fish
 mise install
 gh auth setup-git
