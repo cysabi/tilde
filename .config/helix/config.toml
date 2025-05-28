@@ -11,10 +11,9 @@ color-modes = true
 statusline.mode.normal = "normal"
 statusline.mode.insert = "insert"
 statusline.mode.select = "select"
-statusline.separator = ""
-statusline.left = ["mode", "file-name", "position"]
-statusline.right = ["spinner", "diagnostics", "spacer", "total-line-numbers", "version-control", "register", "read-only-indicator"]
-
+statusline.separator = "/"
+statusline.left = ["mode", "spacer", "file-name", "position", "separator", "total-line-numbers", "spacer", "file-modification-indicator", "read-only-indicator"]
+statusline.right = ["spinner", "spacer", "diagnostics", "spacer", "version-control", "spacer", "primary-selection-length", "separator", "selections", "register"]
 cursorline = true
 gutters.layout = ["diff", "spacer"]
 preview-completion-insert = false
@@ -114,3 +113,10 @@ insert.A-j = ["ensure_selections_forward", "extend_to_line_bounds", "extend_char
 normal.A-k = ["ensure_selections_forward", "extend_to_line_bounds", "extend_char_right", "extend_char_left", "delete_selection", "move_line_up", "add_newline_above", "move_line_up", "replace_with_yanked"]
 select.A-k = ["ensure_selections_forward", "extend_to_line_bounds", "extend_char_right", "extend_char_left", "delete_selection", "move_line_up", "add_newline_above", "move_line_up", "replace_with_yanked"]
 insert.A-k = ["ensure_selections_forward", "extend_to_line_bounds", "extend_char_right", "extend_char_left", "delete_selection", "move_line_up", "add_newline_above", "move_line_up", "replace_with_yanked"]
+
+# disable arrows
+normal.A-up = "no_op"
+normal.A-down = "no_op"
+normal.A-left = "no_op"
+normal.A-right = "no_op"
+normal.A-S-down = "no_op"
