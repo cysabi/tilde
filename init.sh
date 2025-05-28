@@ -25,5 +25,5 @@ then
   curl --proto '=https' -sS https://setup.atuin.sh | sh
 fi
 
-mise install
-gh auth setup-git
+fish -c "mise install"
+fish -c "gh auth setup-git"
