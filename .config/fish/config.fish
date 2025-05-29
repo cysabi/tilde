@@ -4,7 +4,7 @@ end
 abbr --add dotdot --regex '^\.\.+$' --function dotdotdot
 
 function mv
-    command mv -vI $argv
+    command mv -v $argv
 end
 
 function rm
@@ -12,11 +12,11 @@ function rm
 end
 
 function cp
-    command cp -vip $argv
+    command cp -v $argv
 end
 
 function md
-    command mkdir -vp $argv
+    command mkdir -v $argv
     cd $argv
 end
 

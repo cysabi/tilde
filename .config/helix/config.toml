@@ -70,19 +70,15 @@ insert.A-l = "goto_line_end"
 
 normal.H = "expand_selection"
 select.H = "expand_selection"
-insert.H = "expand_selection"
 
 normal.L = "shrink_selection"
 select.L = "shrink_selection"
-insert.L = "shrink_selection"
 
 normal.J = "select_next_sibling"
 select.J = "select_next_sibling"
-insert.J = "select_next_sibling"
 
 normal.K = "select_prev_sibling"
 select.K = "select_prev_sibling"
-insert.K = "select_prev_sibling"
 
 # nicer selections
 normal.esc = ["collapse_selection", "keep_primary_selection"]
