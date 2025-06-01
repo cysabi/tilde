@@ -1,18 +1,2 @@
-@import url(https://mwittrien.github.io/BetterDiscordAddons/Themes/DiscordRecolor/DiscordRecolor.css);
+@import url("https://catppuccin.github.io/discord/dist/catppuccin-mocha-lavender.theme.css");
 @import url(https://croissantdunord.github.io/discord-adblock/adblock.css);
-
-:root {
-  --textbrightest: 255, 255, 255; /*        white            _   default: 255,255,255   _   hex: #ffffff */
-  --textbrighter: 221, 225, 233; /*         darker white     _   default: 220,221,222   _   hex: #dcddde */
-  --textbright: 190, 197, 213; /*           dark white       _   default: 185,187,190   _   hex: #b9bbbe */
-  --textdark: 152, 163, 189; /*             bright grey      _   default: 142,146,151   _   hex: #8e9297 */
-  --textdarker: 124, 138, 171; /*           brighter grey    _   default: 114,118,125   _   hex: #72767d */
-  --textdarkest: 93, 109, 146; /*           grey             _   default:  79, 84, 92   _   hex: #4f545c */
-
-  --backgroundaccent: 44, 51, 68; /*        darker grey      _   default:  64, 68, 75   _   hex: #40444b */
-  --backgroundprimary: 30, 35, 46; /*       dark grey        _   default:  54, 57, 63   _   hex: #36393f */
-  --backgroundsecondary: 24, 28, 37; /*     darkest grey     _   default:  47, 49, 54   _   hex: #2f3136 */
-  --backgroundsecondaryalt: 14, 16, 22; /*  grey-black       _   default:  41, 43, 47   _   hex: #292b2f */
-  --backgroundtertiary: 20, 23, 31; /*      bright black     _   default:  32, 34, 37   _   hex: #202225 */
-  --backgroundfloating: 0, 0, 0; /*         brighter black   _   default:  24, 25, 28   _   hex: #18191c */
-}
