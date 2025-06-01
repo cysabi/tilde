@@ -24,7 +24,9 @@
             nixos-wsl.nixosModules.default
             (
               {
+                config,
                 pkgs,
+                inputs,
                 ...
               }:
               {
