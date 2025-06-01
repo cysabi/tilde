@@ -23,7 +23,6 @@ soft-wrap.enable = true
 
 # behaviors
 shell = ["fish", "-c"]
-auto-pairs = false
 lsp.display-messages = true
 file-picker.hidden = false
 file-picker.ignore = false

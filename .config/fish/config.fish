@@ -3,23 +3,6 @@ function dotdotdot
 end
 abbr --add dotdot --regex '^\.\.+$' --function dotdotdot
 
-function mv
-    command mv -v $argv
-end
-
-function rm
-    command rm -vI $argv
-end
-
-function cp
-    command cp -v $argv
-end
-
-function md
-    command mkdir -v $argv
-    cd $argv
-end
-
 function o
     # get the directory to open
     set -f FP (realpath .)
@@ -38,13 +21,21 @@ function o
     explorer.exe $FP
 end
 
-function l
-    set tmp (mktemp -t "yazi-cwd.XXXXXX")
-    yazi $argv --cwd-file="$tmp"
-    if read -z cwd <"$tmp"; and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
-        builtin cd -- "$cwd"
-    end
-    command rm -f -- "$tmp"
+function mv
+    command mv -v $argv
+end
+
+function rm
+    command rm -vI $argv
+end
+
+function cp
+    command cp -v $argv
+end
+
+function md
+    command mkdir -v $argv
+    cd $argv
 end
 
 alias ls 'eza -1TL1 --group-directories-first'
@@ -57,18 +48,5 @@ alias dcp 'docker compose'
 alias path 'echo "#  "; printf "%s\n" (string split \n $PATH)'
 alias whatsmyip "dig +short myip.opendns.com @resolver1.opendns.com"
 
-set GIT_AUTHOR_NAME cysabi
-set GIT_AUTHOR_EMAIL "47790183+cysabi@users.noreply.github.com"
-set GIT_COMMITTER_NAME "$GIT_AUTHOR_NAME"
-set GIT_COMMITTER_EMAIL "$GIT_AUTHOR_EMAIL"
-git config --global user.name "$GIT_AUTHOR_NAME"
-git config --global user.email "$GIT_AUTHOR_EMAIL"
-
 set C /mnt/c/Users/cysabi
-set -gx EDITOR hx
-set -gx COLORTERM truecolor
 set -g fish_greeting ""
-
-starship init fish | source
-atuin init fish | source
-~/.local/bin/mise activate fish --shims | source
