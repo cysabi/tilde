@@ -90,15 +90,6 @@
 
   programs.bat = {
     enable = true;
-    syntaxes = {
-      gleam = {
-        src = pkgs.fetchFromGitHub {
-          owner = "molnarmark";
-          repo = "sublime-gleam";
-        };
-        file = "syntax/gleam.sublime-syntax";
-      };
-    };
     config = {
       paging = "never";
       theme = "base16";
