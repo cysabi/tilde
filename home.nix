@@ -1,0 +1,308 @@
+{ config, pkgs, ... }:
+
+{
+  home.username = "cysabi";
+  home.homeDirectory = "/home/cysabi";
+  home.shell.enableFishIntegration = true;
+
+  # link all files in `./scripts` to `~/.config/i3/scripts`
+  # home.file.".config/i3/scripts" = {
+  #   source = ./scripts;
+  #   recursive = true;   # link recursively
+  #   executable = true;  # make all files executable
+  # };
+
+  programs.fish = {
+    enable = true;
+    shellAliases = {
+      ls = "eza";
+      g = "lazygit";
+      cat = "bat";
+      grep = "rg";
+      find = "fd";
+      dcp = "docker compose";
+      path = "echo \"#  \"; printf \"%s\n\" (string split \n $PATH)";
+    };
+    shellInit = """
+function dotdotdot
+    echo cd (string repeat -n (math (string length -- $argv[1]) - 1) ../)
+end
+abbr --add dotdot --regex '^\.\.+$' --function dotdotdot
+
+function o
+    # get the directory to open
+    set -f FP (realpath .)
+    if test (count $argv) = 1
+        set -f FP (realpath $argv)
+    end
+
+    # translate path to valid file explorer path
+    if string match -rq "^/mnt/c/" $FP
+        set -f FP (string replace -r "^/mnt/c/" "C:/" $FP)
+    else
+        set -f FP (string join '' "//wsl.localhost/Ubuntu" $FP)
+    end
+
+    set -f FP (string replace -a "/" "\\" $FP)
+    explorer.exe $FP
+end
+
+function mv
+    command mv -v $argv
+end
+
+function rm
+    command rm -vI $argv
+end
+
+function cp
+    command cp -v $argv
+end
+
+function md
+    command mkdir -v $argv
+    cd $argv
+end
+
+set C /mnt/c/Users/cysabi
+set -g fish_greeting ""
+    """
+  };
+
+  programs.starship = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
+  programs.atuin = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
+  programs.eza = {
+    enable = true;
+    enableFishIntegration = true;
+    extraOptions = [ "-1TL1" "--group-directories-first" ];
+  };
+
+  programs.bat = {
+    enable = true;
+    syntaxes = {
+      gleam = {
+        src = pkgs.fetchFromGitHub {
+          owner = "molnarmark";
+          repo = "sublime-gleam";
+        };
+        file = "syntax/gleam.sublime-syntax";
+      };
+    };
+    config = {
+      paging = "never";
+      theme = "base16";
+      plain = true;
+    }
+  };
+
+  programs.helix = {
+    enable = true;
+    defaultEditor = true;
+    settings = {
+      theme = "catppuccin_mocha";
+      editor = {
+        # basically theming
+        true-color = true;
+        undercurl = true;
+        bufferline = "multiple";
+        color-modes = true;
+
+        statusline.mode.normal = "normal";
+        statusline.mode.insert = "insert";
+        statusline.mode.select = "select";
+        statusline.separator = "/";
+        statusline.left = ["mode" "spacer" "file-name" "position" "separator" "total-line-numbers" "spacer" "file-modification-indicator" "read-only-indicator"];
+        statusline.right = ["spinner" "spacer" "diagnostics" "spacer" "version-control" "spacer" "primary-selection-length" "separator" "selections" "register"];
+        cursorline = true;
+        gutters.layout = ["diff" "spacer"];
+        preview-completion-insert = false;
+        scrolloff = 10;
+        scroll-lines = 1;
+        soft-wrap.enable = true;
+
+        # behaviors
+        shell = ["fish" "-c"];
+        lsp.display-messages = true;
+        file-picker.hidden = false;
+        file-picker.ignore = false;
+        file-picker.git-ignore = true;
+
+        # diagnostics
+        end-of-line-diagnostics = "info";
+        inline-diagnostics.cursor-line = "info";
+      };
+      keys = {
+        # h j k l
+        normal.A-j = ["ensure_selections_forward" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "delete_selection" "add_newline_below" "move_line_down" "replace_with_yanked"];
+        select.A-j = ["ensure_selections_forward" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "delete_selection" "add_newline_below" "move_line_down" "replace_with_yanked"];
+        insert.A-j = ["ensure_selections_forward" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "delete_selection" "add_newline_below" "move_line_down" "replace_with_yanked"];
+
+        normal.A-k = ["ensure_selections_forward" "flip_selections" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "delete_selection" "move_line_up" "add_newline_above" "move_line_up" "replace_with_yanked"];
+        select.A-k = ["ensure_selections_forward" "flip_selections" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "delete_selection" "move_line_up" "add_newline_above" "move_line_up" "replace_with_yanked"];
+        insert.A-k = ["ensure_selections_forward" "flip_selections" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "delete_selection" "move_line_up" "add_newline_above" "move_line_up" "replace_with_yanked"];
+
+        normal.A-J = ["extend_line_down" "extend_to_line_bounds"];
+        select.A-J = ["extend_line_down" "extend_to_line_bounds"];
+        insert.A-J = ["extend_line_down" "extend_to_line_bounds"];
+
+        normal.A-K = ["extend_line_up" "extend_to_line_bounds"];
+        insert.A-K = ["extend_line_up" "extend_to_line_bounds"];
+        select.A-K = ["extend_line_up" "extend_to_line_bounds"];
+
+        normal.C-A-j = ["ensure_selections_forward" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "yank" "add_newline_below" "move_line_down" "replace_with_yanked"];
+        select.C-A-j = ["ensure_selections_forward" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "yank" "add_newline_below" "move_line_down" "replace_with_yanked"];
+        insert.C-A-j = ["ensure_selections_forward" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "yank" "add_newline_below" "move_line_down" "replace_with_yanked"];
+
+        normal.C-A-k = ["ensure_selections_forward" "flip_selections" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "yank" "add_newline_above" "move_line_up" "replace_with_yanked"];
+        select.C-A-k = ["ensure_selections_forward" "flip_selections" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "yank" "add_newline_above" "move_line_up" "replace_with_yanked"];
+        insert.C-A-k = ["ensure_selections_forward" "flip_selections" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "yank" "add_newline_above" "move_line_up" "replace_with_yanked"];
+
+        normal.A-h = "goto_line_start";
+        select.A-h = "goto_line_start";
+        insert.A-h = "goto_line_start";
+
+        normal.A-l = "goto_line_end";
+        select.A-l = "goto_line_end";
+        insert.A-l = "goto_line_end";
+
+        normal.H = "expand_selection";
+        select.H = "expand_selection";
+
+        normal.L = "shrink_selection";
+        select.L = "shrink_selection";
+
+        normal.J = "select_next_sibling";
+        select.J = "select_next_sibling";
+
+        normal.K = "select_prev_sibling";
+        select.K = "select_prev_sibling";
+
+        # nicer selections
+        normal.esc = ["collapse_selection" "keep_primary_selection"];
+        normal.i = ["collapse_selection" "insert_mode"];
+        normal.a = ["collapse_selection" "append_mode"];
+
+        select.i = ["collapse_selection" "insert_mode"];
+        select.a = ["collapse_selection" "append_mode"];
+
+        normal.X = "extend_line_above";
+        select.X = "extend_line_above";
+
+        # commands
+        normal.C-r = [":config-reload" ":reload"];
+        select.C-r = [":config-reload" ":reload"];
+        insert.C-r = [":config-reload" ":reload"];
+
+        normal.C-q = [":quit"];
+        select.C-q = [":quit"];
+        insert.C-q = [":quit"];
+
+        # clipboard
+        normal.C-s = [":w"];
+        select.C-s = [":w"];
+        insert.C-s = [":w"];
+
+        normal.C-c = [":clipboard-yank"];
+        select.C-c = [":clipboard-yank"];
+        insert.C-c = [":clipboard-yank"];
+
+        normal.C-x = [":clipboard-yank" "delete_selection_noyank"];
+        select.C-x = [":clipboard-yank" "delete_selection_noyank"];
+        insert.C-x = [":clipboard-yank" "delete_selection_noyank"];
+
+        normal.C-v = [":clipboard-paste-after" "collapse_selection"];
+        select.C-v = [":clipboard-paste-replace" "collapse_selection"];
+        insert.C-v = [":clipboard-paste-after" "collapse_selection"];
+
+        normal.C-V = [":clipboard-paste-before" "collapse_selection"];
+        select.C-V = [":clipboard-paste-replace" "collapse_selection"];
+        insert.C-V = [":clipboard-paste-before" "collapse_selection"];
+
+        normal.C-z = ["undo" "collapse_selection"];
+        select.C-z = ["undo" "collapse_selection"];
+        insert.C-z = ["undo" "collapse_selection"];
+
+        normal.C-Z = ["redo"];
+        select.C-Z = ["redo"];
+        insert.C-Z = ["redo"];
+
+        # disable arrows
+        normal.A-up = "no_op";
+        select.A-up = "no_op";
+        insert.A-up = "no_op";
+
+        normal.A-down = "no_op";
+        select.A-down = "no_op";
+        insert.A-down = "no_op";
+
+        normal.A-left = "no_op";
+        select.A-left = "no_op";
+        insert.A-left = "no_op";
+
+        normal.A-right = "no_op";
+        select.A-right = "no_op";
+        insert.A-right = "no_op";
+
+        normal.A-S-down = "no_op";
+        select.A-S-down = "no_op";
+        insert.A-S-down = "no_op";
+      };
+    };
+    themes = {
+      catppuccin_mocha = {
+        inherits = "catppuccin_mocha";
+        "ui.background" = { fg = "text" }; # disable background fill
+      };
+    };
+  };
+
+  programs.yazi = {
+    enable = true;
+    enableFishIntegration = true;
+    shellWrapperName = "l";
+    # TODO yaziPlugins
+  };
+
+  programs.gh = {
+    enable = true;
+    gitCredentialHelper = {
+      enable = true;
+    };
+  };
+
+  # Packages that should be installed to the user profile.
+  home.packages = with pkgs; [
+    # rust utils
+    ripgrep
+    fd
+
+    # git
+    gh
+    lazygit # TODO add git: paging: colorArg: always \n pager: delta --dark --file-style none --hyperlinks --paging=never
+
+    # code
+    gleam
+    rust
+    bun
+    go
+    uv
+  ];
+
+  programs.git = {
+    delta = {
+      enable = true;
+      # TODO https://dandavison.github.io/delta/configuration.html
+    };
+    userName = "cysabi";
+    userEmail = "47790183+cysabi@users.noreply.github.com";
+  };
+  home.stateVersion = "25.05";
+}

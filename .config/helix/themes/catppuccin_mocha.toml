@@ -1,4 +1,0 @@
-inherits = "catppuccin_mocha"
-
-# disable background fill
-"ui.background" = { fg = "text" }
