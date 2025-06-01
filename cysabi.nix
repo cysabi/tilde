@@ -5,13 +5,6 @@
   home.homeDirectory = "/home/cysabi";
   home.shell.enableFishIntegration = true;
 
-  # link all files in `./scripts` to `~/.config/i3/scripts`
-  # home.file.".config/i3/scripts" = {
-  #   source = ./scripts;
-  #   recursive = true;   # link recursively
-  #   executable = true;  # make all files executable
-  # };
-
   programs.fish = {
     enable = true;
     shellAliases = {

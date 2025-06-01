@@ -78,10 +78,7 @@
                   zstd
                   gnupg
 
-                  # nix related
-                  #
-                  # it provides the command `nom` works just like `nix`
-                  # with more details log output
+                  # provides the command `nom` for more detailed log output
                   nix-output-monitor
 
                   bottom # replacement of htop/nmon
