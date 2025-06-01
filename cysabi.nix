@@ -15,6 +15,7 @@
       find = "fd";
       dcp = "docker compose";
       path = "echo \"#  \"; printf \"%s\n\" (string split \n $PATH)";
+      neo = "macchina";
     };
     shellInit = ''
       function dotdotdot
