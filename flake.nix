@@ -36,7 +36,7 @@
                   "flakes"
                 ];
                 wsl.enable = true;
-                # wsl.defaultUser = "cysabi";
+                wsl.defaultUser = "cysabi";
 
                 # windows terminal fix
                 environment.variables.COLORTERM = "truecolor";

@@ -23,50 +23,50 @@
       dcp = "docker compose";
       path = "echo \"#  \"; printf \"%s\n\" (string split \n $PATH)";
     };
-    shellInit = """
-function dotdotdot
-    echo cd (string repeat -n (math (string length -- $argv[1]) - 1) ../)
-end
-abbr --add dotdot --regex '^\.\.+$' --function dotdotdot
+    shellInit = ''
+      function dotdotdot
+          echo cd (string repeat -n (math (string length -- $argv[1]) - 1) ../)
+      end
+      abbr --add dotdot --regex '^\.\.+$' --function dotdotdot
 
-function o
-    # get the directory to open
-    set -f FP (realpath .)
-    if test (count $argv) = 1
-        set -f FP (realpath $argv)
-    end
+      function o
+          # get the directory to open
+          set -f FP (realpath .)
+          if test (count $argv) = 1
+              set -f FP (realpath $argv)
+          end
 
-    # translate path to valid file explorer path
-    if string match -rq "^/mnt/c/" $FP
-        set -f FP (string replace -r "^/mnt/c/" "C:/" $FP)
-    else
-        set -f FP (string join '' "//wsl.localhost/Ubuntu" $FP)
-    end
+          # translate path to valid file explorer path
+          if string match -rq "^/mnt/c/" $FP
+              set -f FP (string replace -r "^/mnt/c/" "C:/" $FP)
+          else
+              set -f FP (string join "" "//wsl.localhost/Ubuntu" $FP)
+          end
 
-    set -f FP (string replace -a "/" "\\" $FP)
-    explorer.exe $FP
-end
+          set -f FP (string replace -a "/" "\\" $FP)
+          explorer.exe $FP
+      end
 
-function mv
-    command mv -v $argv
-end
+      function mv
+          command mv -v $argv
+      end
 
-function rm
-    command rm -vI $argv
-end
+      function rm
+          command rm -vI $argv
+      end
 
-function cp
-    command cp -v $argv
-end
+      function cp
+          command cp -v $argv
+      end
 
-function md
-    command mkdir -v $argv
-    cd $argv
-end
+      function md
+          command mkdir -v $argv
+          cd $argv
+      end
 
-set C /mnt/c/Users/cysabi
-set -g fish_greeting ""
-    """
+      set C /mnt/c/Users/cysabi
+      set -g fish_greeting ""
+    '';
   };
 
   programs.starship = {
@@ -82,7 +82,10 @@ set -g fish_greeting ""
   programs.eza = {
     enable = true;
     enableFishIntegration = true;
-    extraOptions = [ "-1TL1" "--group-directories-first" ];
+    extraOptions = [
+      "-1TL1"
+      "--group-directories-first"
+    ];
   };
 
   programs.bat = {
@@ -100,7 +103,7 @@ set -g fish_greeting ""
       paging = "never";
       theme = "base16";
       plain = true;
-    }
+    };
   };
 
   programs.helix = {
@@ -119,17 +122,44 @@ set -g fish_greeting ""
         statusline.mode.insert = "insert";
         statusline.mode.select = "select";
         statusline.separator = "/";
-        statusline.left = ["mode" "spacer" "file-name" "position" "separator" "total-line-numbers" "spacer" "file-modification-indicator" "read-only-indicator"];
-        statusline.right = ["spinner" "spacer" "diagnostics" "spacer" "version-control" "spacer" "primary-selection-length" "separator" "selections" "register"];
+        statusline.left = [
+          "mode"
+          "spacer"
+          "file-name"
+          "position"
+          "separator"
+          "total-line-numbers"
+          "spacer"
+          "file-modification-indicator"
+          "read-only-indicator"
+        ];
+        statusline.right = [
+          "spinner"
+          "spacer"
+          "diagnostics"
+          "spacer"
+          "version-control"
+          "spacer"
+          "primary-selection-length"
+          "separator"
+          "selections"
+          "register"
+        ];
         cursorline = true;
-        gutters.layout = ["diff" "spacer"];
+        gutters.layout = [
+          "diff"
+          "spacer"
+        ];
         preview-completion-insert = false;
         scrolloff = 10;
         scroll-lines = 1;
         soft-wrap.enable = true;
 
         # behaviors
-        shell = ["fish" "-c"];
+        shell = [
+          "fish"
+          "-c"
+        ];
         lsp.display-messages = true;
         file-picker.hidden = false;
         file-picker.ignore = false;
@@ -141,29 +171,164 @@ set -g fish_greeting ""
       };
       keys = {
         # h j k l
-        normal.A-j = ["ensure_selections_forward" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "delete_selection" "add_newline_below" "move_line_down" "replace_with_yanked"];
-        select.A-j = ["ensure_selections_forward" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "delete_selection" "add_newline_below" "move_line_down" "replace_with_yanked"];
-        insert.A-j = ["ensure_selections_forward" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "delete_selection" "add_newline_below" "move_line_down" "replace_with_yanked"];
+        normal.A-j = [
+          "ensure_selections_forward"
+          "extend_to_line_bounds"
+          "extend_char_right"
+          "extend_char_left"
+          "delete_selection"
+          "add_newline_below"
+          "move_line_down"
+          "replace_with_yanked"
+        ];
+        select.A-j = [
+          "ensure_selections_forward"
+          "extend_to_line_bounds"
+          "extend_char_right"
+          "extend_char_left"
+          "delete_selection"
+          "add_newline_below"
+          "move_line_down"
+          "replace_with_yanked"
+        ];
+        insert.A-j = [
+          "ensure_selections_forward"
+          "extend_to_line_bounds"
+          "extend_char_right"
+          "extend_char_left"
+          "delete_selection"
+          "add_newline_below"
+          "move_line_down"
+          "replace_with_yanked"
+        ];
 
-        normal.A-k = ["ensure_selections_forward" "flip_selections" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "delete_selection" "move_line_up" "add_newline_above" "move_line_up" "replace_with_yanked"];
-        select.A-k = ["ensure_selections_forward" "flip_selections" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "delete_selection" "move_line_up" "add_newline_above" "move_line_up" "replace_with_yanked"];
-        insert.A-k = ["ensure_selections_forward" "flip_selections" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "delete_selection" "move_line_up" "add_newline_above" "move_line_up" "replace_with_yanked"];
+        normal.A-k = [
+          "ensure_selections_forward"
+          "flip_selections"
+          "extend_to_line_bounds"
+          "extend_char_right"
+          "extend_char_left"
+          "delete_selection"
+          "move_line_up"
+          "add_newline_above"
+          "move_line_up"
+          "replace_with_yanked"
+        ];
+        select.A-k = [
+          "ensure_selections_forward"
+          "flip_selections"
+          "extend_to_line_bounds"
+          "extend_char_right"
+          "extend_char_left"
+          "delete_selection"
+          "move_line_up"
+          "add_newline_above"
+          "move_line_up"
+          "replace_with_yanked"
+        ];
+        insert.A-k = [
+          "ensure_selections_forward"
+          "flip_selections"
+          "extend_to_line_bounds"
+          "extend_char_right"
+          "extend_char_left"
+          "delete_selection"
+          "move_line_up"
+          "add_newline_above"
+          "move_line_up"
+          "replace_with_yanked"
+        ];
 
-        normal.A-J = ["extend_line_down" "extend_to_line_bounds"];
-        select.A-J = ["extend_line_down" "extend_to_line_bounds"];
-        insert.A-J = ["extend_line_down" "extend_to_line_bounds"];
+        normal.A-J = [
+          "extend_line_down"
+          "extend_to_line_bounds"
+        ];
+        select.A-J = [
+          "extend_line_down"
+          "extend_to_line_bounds"
+        ];
+        insert.A-J = [
+          "extend_line_down"
+          "extend_to_line_bounds"
+        ];
 
-        normal.A-K = ["extend_line_up" "extend_to_line_bounds"];
-        insert.A-K = ["extend_line_up" "extend_to_line_bounds"];
-        select.A-K = ["extend_line_up" "extend_to_line_bounds"];
+        normal.A-K = [
+          "extend_line_up"
+          "extend_to_line_bounds"
+        ];
+        insert.A-K = [
+          "extend_line_up"
+          "extend_to_line_bounds"
+        ];
+        select.A-K = [
+          "extend_line_up"
+          "extend_to_line_bounds"
+        ];
 
-        normal.C-A-j = ["ensure_selections_forward" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "yank" "add_newline_below" "move_line_down" "replace_with_yanked"];
-        select.C-A-j = ["ensure_selections_forward" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "yank" "add_newline_below" "move_line_down" "replace_with_yanked"];
-        insert.C-A-j = ["ensure_selections_forward" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "yank" "add_newline_below" "move_line_down" "replace_with_yanked"];
+        normal.C-A-j = [
+          "ensure_selections_forward"
+          "extend_to_line_bounds"
+          "extend_char_right"
+          "extend_char_left"
+          "yank"
+          "add_newline_below"
+          "move_line_down"
+          "replace_with_yanked"
+        ];
+        select.C-A-j = [
+          "ensure_selections_forward"
+          "extend_to_line_bounds"
+          "extend_char_right"
+          "extend_char_left"
+          "yank"
+          "add_newline_below"
+          "move_line_down"
+          "replace_with_yanked"
+        ];
+        insert.C-A-j = [
+          "ensure_selections_forward"
+          "extend_to_line_bounds"
+          "extend_char_right"
+          "extend_char_left"
+          "yank"
+          "add_newline_below"
+          "move_line_down"
+          "replace_with_yanked"
+        ];
 
-        normal.C-A-k = ["ensure_selections_forward" "flip_selections" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "yank" "add_newline_above" "move_line_up" "replace_with_yanked"];
-        select.C-A-k = ["ensure_selections_forward" "flip_selections" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "yank" "add_newline_above" "move_line_up" "replace_with_yanked"];
-        insert.C-A-k = ["ensure_selections_forward" "flip_selections" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "yank" "add_newline_above" "move_line_up" "replace_with_yanked"];
+        normal.C-A-k = [
+          "ensure_selections_forward"
+          "flip_selections"
+          "extend_to_line_bounds"
+          "extend_char_right"
+          "extend_char_left"
+          "yank"
+          "add_newline_above"
+          "move_line_up"
+          "replace_with_yanked"
+        ];
+        select.C-A-k = [
+          "ensure_selections_forward"
+          "flip_selections"
+          "extend_to_line_bounds"
+          "extend_char_right"
+          "extend_char_left"
+          "yank"
+          "add_newline_above"
+          "move_line_up"
+          "replace_with_yanked"
+        ];
+        insert.C-A-k = [
+          "ensure_selections_forward"
+          "flip_selections"
+          "extend_to_line_bounds"
+          "extend_char_right"
+          "extend_char_left"
+          "yank"
+          "add_newline_above"
+          "move_line_up"
+          "replace_with_yanked"
+        ];
 
         normal.A-h = "goto_line_start";
         select.A-h = "goto_line_start";
@@ -186,53 +351,113 @@ set -g fish_greeting ""
         select.K = "select_prev_sibling";
 
         # nicer selections
-        normal.esc = ["collapse_selection" "keep_primary_selection"];
-        normal.i = ["collapse_selection" "insert_mode"];
-        normal.a = ["collapse_selection" "append_mode"];
+        normal.esc = [
+          "collapse_selection"
+          "keep_primary_selection"
+        ];
+        normal.i = [
+          "collapse_selection"
+          "insert_mode"
+        ];
+        normal.a = [
+          "collapse_selection"
+          "append_mode"
+        ];
 
-        select.i = ["collapse_selection" "insert_mode"];
-        select.a = ["collapse_selection" "append_mode"];
+        select.i = [
+          "collapse_selection"
+          "insert_mode"
+        ];
+        select.a = [
+          "collapse_selection"
+          "append_mode"
+        ];
 
         normal.X = "extend_line_above";
         select.X = "extend_line_above";
 
         # commands
-        normal.C-r = [":config-reload" ":reload"];
-        select.C-r = [":config-reload" ":reload"];
-        insert.C-r = [":config-reload" ":reload"];
+        normal.C-r = [
+          ":config-reload"
+          ":reload"
+        ];
+        select.C-r = [
+          ":config-reload"
+          ":reload"
+        ];
+        insert.C-r = [
+          ":config-reload"
+          ":reload"
+        ];
 
-        normal.C-q = [":quit"];
-        select.C-q = [":quit"];
-        insert.C-q = [":quit"];
+        normal.C-q = [ ":quit" ];
+        select.C-q = [ ":quit" ];
+        insert.C-q = [ ":quit" ];
 
         # clipboard
-        normal.C-s = [":w"];
-        select.C-s = [":w"];
-        insert.C-s = [":w"];
+        normal.C-s = [ ":w" ];
+        select.C-s = [ ":w" ];
+        insert.C-s = [ ":w" ];
 
-        normal.C-c = [":clipboard-yank"];
-        select.C-c = [":clipboard-yank"];
-        insert.C-c = [":clipboard-yank"];
+        normal.C-c = [ ":clipboard-yank" ];
+        select.C-c = [ ":clipboard-yank" ];
+        insert.C-c = [ ":clipboard-yank" ];
 
-        normal.C-x = [":clipboard-yank" "delete_selection_noyank"];
-        select.C-x = [":clipboard-yank" "delete_selection_noyank"];
-        insert.C-x = [":clipboard-yank" "delete_selection_noyank"];
+        normal.C-x = [
+          ":clipboard-yank"
+          "delete_selection_noyank"
+        ];
+        select.C-x = [
+          ":clipboard-yank"
+          "delete_selection_noyank"
+        ];
+        insert.C-x = [
+          ":clipboard-yank"
+          "delete_selection_noyank"
+        ];
 
-        normal.C-v = [":clipboard-paste-after" "collapse_selection"];
-        select.C-v = [":clipboard-paste-replace" "collapse_selection"];
-        insert.C-v = [":clipboard-paste-after" "collapse_selection"];
+        normal.C-v = [
+          ":clipboard-paste-after"
+          "collapse_selection"
+        ];
+        select.C-v = [
+          ":clipboard-paste-replace"
+          "collapse_selection"
+        ];
+        insert.C-v = [
+          ":clipboard-paste-after"
+          "collapse_selection"
+        ];
 
-        normal.C-V = [":clipboard-paste-before" "collapse_selection"];
-        select.C-V = [":clipboard-paste-replace" "collapse_selection"];
-        insert.C-V = [":clipboard-paste-before" "collapse_selection"];
+        normal.C-V = [
+          ":clipboard-paste-before"
+          "collapse_selection"
+        ];
+        select.C-V = [
+          ":clipboard-paste-replace"
+          "collapse_selection"
+        ];
+        insert.C-V = [
+          ":clipboard-paste-before"
+          "collapse_selection"
+        ];
 
-        normal.C-z = ["undo" "collapse_selection"];
-        select.C-z = ["undo" "collapse_selection"];
-        insert.C-z = ["undo" "collapse_selection"];
+        normal.C-z = [
+          "undo"
+          "collapse_selection"
+        ];
+        select.C-z = [
+          "undo"
+          "collapse_selection"
+        ];
+        insert.C-z = [
+          "undo"
+          "collapse_selection"
+        ];
 
-        normal.C-Z = ["redo"];
-        select.C-Z = ["redo"];
-        insert.C-Z = ["redo"];
+        normal.C-Z = [ "redo" ];
+        select.C-Z = [ "redo" ];
+        insert.C-Z = [ "redo" ];
 
         # disable arrows
         normal.A-up = "no_op";
@@ -259,7 +484,9 @@ set -g fish_greeting ""
     themes = {
       catppuccin_mocha = {
         inherits = "catppuccin_mocha";
-        "ui.background" = { fg = "text" }; # disable background fill
+        "ui.background" = {
+          fg = "text";
+        }; # disable background fill
       };
     };
   };
