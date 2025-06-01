@@ -517,7 +517,7 @@
 
     # code
     gleam
-    rust
+    rustup
     bun
     go
     uv
