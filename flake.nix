@@ -46,6 +46,12 @@
                   enable = true;
                 };
 
+                # shell
+                programs.fish = {
+                  enable = true;
+                };
+                users.defaultUserShell = pkgs.fish;
+
                 # packages
                 environment.systemPackages = with pkgs; [
                   # flakes
