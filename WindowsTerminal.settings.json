@@ -6,7 +6,7 @@
   "copyFormatting": "none",
   "useAcrylicInTabRow": true,
   "windowingBehavior": "useExisting",
-  "defaultProfile": "{52a7bf31-e5f9-55a7-a86f-5ab848ad0aac}",
+  "defaultProfile": "{a0d95c2b-551e-4761-ab45-417e856453a8}",
   "profiles": {
     "defaults": {
       "bellStyle": "none",
@@ -28,10 +28,13 @@
     },
     "list": [
       {
-        "guid": "{52a7bf31-e5f9-55a7-a86f-5ab848ad0aac}",
+        "commandline": "C:\\WINDOWS\\system32\\wsl.exe --distribution-id {d262c6ae-77ab-495f-b8b9-298384d90787} --cd ~",
+        "guid": "{a0d95c2b-551e-4761-ab45-417e856453a8}",
         "hidden": false,
+        "icon": "C:\\Users\\cysabi\\AppData\\Local\\wsl\\{d262c6ae-77ab-495f-b8b9-298384d90787}\\shortcut.ico",
         "name": "NixOS",
-        "source": "Microsoft.WSL"
+        "pathTranslationStyle": "wsl",
+        "startingDirectory": "~"
       },
       {
         "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
