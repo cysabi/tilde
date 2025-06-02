@@ -45,11 +45,12 @@
         else if test $argv[1] = reload
             sudo nixos-rebuild switch
         else if test $argv[1] = open
+            if test -d /etc/nixos/.git
+                echo "cysabi/nixos doesn't exist! writing..."
+                sudo rm -rfv /etc/nixos
+                git clone https://github.com/cysabi/nixos /etc/nixos
+            end
             sudo hx --config ~/.config/helix/config.toml /etc/nixos
-        else if test $argv[1] = clone
-            sudo rm -rf /etc/nixos
-            git clone https://github.com/cysabi/nixos
-            sudo mv -r nixos/ /etc/nixos
         end
       '';
       o = ''
