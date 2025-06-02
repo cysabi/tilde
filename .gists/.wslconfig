@@ -2,3 +2,7 @@
 
 networkingMode=mirrored
 vmIdleTimeout=-1
+
+[general]
+
+instanceIdleTimeout=-1

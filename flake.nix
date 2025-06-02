@@ -40,6 +40,7 @@
 
                 # windows terminal fix
                 environment.variables.COLORTERM = "truecolor";
+                environment.variables.C = "/mnt/c/Users/cysabi";
 
                 # vscode remote
                 programs.nix-ld = {
