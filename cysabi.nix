@@ -45,7 +45,7 @@
         else if test $argv[1] = reload
             sudo nixos-rebuild switch
         else if test $argv[1] = open
-            if test not -d /etc/nixos/.git
+            if not test -d /etc/nixos/.git
                 echo "cysabi/nixos doesn't exist! writing..."
                 sudo rm -rfv /etc/nixos
                 git clone https://github.com/cysabi/nixos ~/._nixos
