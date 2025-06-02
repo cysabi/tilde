@@ -76,6 +76,7 @@
 
                   # misc
                   macchina
+                  delta
                   file
                   which
                   gnused
@@ -109,6 +110,7 @@
             )
             home-manager.nixosModules.home-manager
             {
+              home-manager.extraSpecialArgs.outPath = self.outPath;
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.cysabi = import ./cysabi.nix;

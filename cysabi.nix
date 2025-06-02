@@ -1,71 +1,86 @@
-{ config, pkgs, ... }:
+{ config, pkgs, outPath, ... }:
 
 {
+  home.stateVersion = "25.05";
   home.username = "cysabi";
   home.homeDirectory = "/home/cysabi";
   home.shell.enableFishIntegration = true;
+  home.packages = with pkgs; [
+    gleam
+    rustup
+    bun
+    go
+    uv
+  ];
 
   programs.fish = {
     enable = true;
+    shellInit = "set -g fish_greeting ''";
     shellAliases = {
-      ls = "eza";
+      l = "fish -c l";
       g = "lazygit";
       cat = "bat";
       grep = "rg";
       find = "fd";
-      dcp = "docker compose";
-      path = "echo \"#  \"; printf \"%s\n\" (string split \n $PATH)";
+      path = "echo \"#  \"; printf \"%s\\n\" (string split \\n $PATH)";
       neo = "macchina";
     };
-    shellInit = ''
-      function dotdotdot
-          echo cd (string repeat -n (math (string length -- $argv[1]) - 1) ../)
-      end
-      abbr --add dotdot --regex '^\.\.+$' --function dotdotdot
+    shellAbbrs = {
+      dotdot = {
+        regex = "^\\.\\.+$";
+        function = "dotdotdot";
+      };
+    };
+    functions = {
+      dotdotdot = ''
+        echo cd (string repeat -n (math (string length -- $argv[1]) - 1) ../)
+      '';
+      md = ''
+        command mkdir -v $argv
+        cd $argv
+      '';
+      nixos = ''
+        if test $argv[1] = get
+            nix profile install nixpkgs#$argv[2]
+        else if test $argv[1] = reload
+            sudo nixos-rebuild switch
+        else if test $argv[1] = open
+            sudo hx --config ~/.config/helix/config.toml /etc/nixos
+        else if test $argv[1] = clone
+            sudo rm -rf /etc/nixos
+            git clone https://github.com/cysabi/nixos
+            sudo mv -r nixos/ /etc/nixos
+        end
+      '';
+      o = ''
+        # get the directory to open
+        set -f FP (realpath .)
+        if test (count $argv) = 1
+            set -f FP (realpath $argv)
+        end
 
-      function o
-          # get the directory to open
-          set -f FP (realpath .)
-          if test (count $argv) = 1
-              set -f FP (realpath $argv)
-          end
+        # translate path to valid file explorer path
+        if string match -rq "^/mnt/c/" $FP
+            set -f FP (string replace -r "^/mnt/c/" "C:/" $FP)
+        else
+            set -f FP (string join "" "//wsl.localhost/Ubuntu" $FP)
+        end
 
-          # translate path to valid file explorer path
-          if string match -rq "^/mnt/c/" $FP
-              set -f FP (string replace -r "^/mnt/c/" "C:/" $FP)
-          else
-              set -f FP (string join "" "//wsl.localhost/Ubuntu" $FP)
-          end
-
-          set -f FP (string replace -a "/" "\\" $FP)
-          explorer.exe $FP
-      end
-
-      function mv
-          command mv -v $argv
-      end
-
-      function rm
-          command rm -vI $argv
-      end
-
-      function cp
-          command cp -v $argv
-      end
-
-      function md
-          command mkdir -v $argv
-          cd $argv
-      end
-
-      set C /mnt/c/Users/cysabi
-      set -g fish_greeting ""
-    '';
+        set -f FP (string replace -a "/" "\\" $FP)
+        explorer.exe $FP
+      '';
+    };
   };
 
   programs.starship = {
     enable = true;
     enableFishIntegration = true;
+    settings = {
+      directory = {
+        truncation_length = 64;
+        truncate_to_repo = false;
+      };
+    };
   };
 
   programs.atuin = {
@@ -73,11 +88,17 @@
     enableFishIntegration = true;
   };
 
-  programs.eza = {
+  programs.yazi = {
     enable = true;
     enableFishIntegration = true;
+    shellWrapperName = "l";
+    # TODO yaziPlugins
+  };
+
+  programs.eza = {
+    enable = true;
     extraOptions = [
-      "-1TL1"
+      "-1TL0"
       "--group-directories-first"
     ];
   };
@@ -88,6 +109,41 @@
       paging = "never";
       theme = "base16";
       plain = true;
+    };
+  };
+
+  programs.ripgrep = {
+    enable = true;
+  };
+
+  programs.fd = {
+    enable = true;
+  };
+
+  programs.git = {
+    delta.enable = true;
+    extraConfig = {
+      user.name = "cysabi";
+      user.email = "47790183+cysabi@users.noreply.github.com";
+      init.defaultBranch = "main";
+      pull.rebase = true;
+    };
+  };
+
+  programs.lazygit = {
+    enable = true;
+    settings = {
+      git.paging = {
+          colorArg = "always";
+          pager = "delta --paging=never";
+      };
+    };
+  };
+
+  programs.gh = {
+    enable = true;
+    gitCredentialHelper = {
+      enable = true;
     };
   };
 
@@ -154,367 +210,57 @@
         end-of-line-diagnostics = "info";
         inline-diagnostics.cursor-line = "info";
       };
-      keys = {
-        # h j k l
-        normal.A-j = [
-          "ensure_selections_forward"
-          "extend_to_line_bounds"
-          "extend_char_right"
-          "extend_char_left"
-          "delete_selection"
-          "add_newline_below"
-          "move_line_down"
-          "replace_with_yanked"
-        ];
-        select.A-j = [
-          "ensure_selections_forward"
-          "extend_to_line_bounds"
-          "extend_char_right"
-          "extend_char_left"
-          "delete_selection"
-          "add_newline_below"
-          "move_line_down"
-          "replace_with_yanked"
-        ];
-        insert.A-j = [
-          "ensure_selections_forward"
-          "extend_to_line_bounds"
-          "extend_char_right"
-          "extend_char_left"
-          "delete_selection"
-          "add_newline_below"
-          "move_line_down"
-          "replace_with_yanked"
-        ];
-
-        normal.A-k = [
-          "ensure_selections_forward"
-          "flip_selections"
-          "extend_to_line_bounds"
-          "extend_char_right"
-          "extend_char_left"
-          "delete_selection"
-          "move_line_up"
-          "add_newline_above"
-          "move_line_up"
-          "replace_with_yanked"
-        ];
-        select.A-k = [
-          "ensure_selections_forward"
-          "flip_selections"
-          "extend_to_line_bounds"
-          "extend_char_right"
-          "extend_char_left"
-          "delete_selection"
-          "move_line_up"
-          "add_newline_above"
-          "move_line_up"
-          "replace_with_yanked"
-        ];
-        insert.A-k = [
-          "ensure_selections_forward"
-          "flip_selections"
-          "extend_to_line_bounds"
-          "extend_char_right"
-          "extend_char_left"
-          "delete_selection"
-          "move_line_up"
-          "add_newline_above"
-          "move_line_up"
-          "replace_with_yanked"
-        ];
-
-        normal.A-J = [
-          "extend_line_down"
-          "extend_to_line_bounds"
-        ];
-        select.A-J = [
-          "extend_line_down"
-          "extend_to_line_bounds"
-        ];
-        insert.A-J = [
-          "extend_line_down"
-          "extend_to_line_bounds"
-        ];
-
-        normal.A-K = [
-          "extend_line_up"
-          "extend_to_line_bounds"
-        ];
-        insert.A-K = [
-          "extend_line_up"
-          "extend_to_line_bounds"
-        ];
-        select.A-K = [
-          "extend_line_up"
-          "extend_to_line_bounds"
-        ];
-
-        normal.C-A-j = [
-          "ensure_selections_forward"
-          "extend_to_line_bounds"
-          "extend_char_right"
-          "extend_char_left"
-          "yank"
-          "add_newline_below"
-          "move_line_down"
-          "replace_with_yanked"
-        ];
-        select.C-A-j = [
-          "ensure_selections_forward"
-          "extend_to_line_bounds"
-          "extend_char_right"
-          "extend_char_left"
-          "yank"
-          "add_newline_below"
-          "move_line_down"
-          "replace_with_yanked"
-        ];
-        insert.C-A-j = [
-          "ensure_selections_forward"
-          "extend_to_line_bounds"
-          "extend_char_right"
-          "extend_char_left"
-          "yank"
-          "add_newline_below"
-          "move_line_down"
-          "replace_with_yanked"
-        ];
-
-        normal.C-A-k = [
-          "ensure_selections_forward"
-          "flip_selections"
-          "extend_to_line_bounds"
-          "extend_char_right"
-          "extend_char_left"
-          "yank"
-          "add_newline_above"
-          "move_line_up"
-          "replace_with_yanked"
-        ];
-        select.C-A-k = [
-          "ensure_selections_forward"
-          "flip_selections"
-          "extend_to_line_bounds"
-          "extend_char_right"
-          "extend_char_left"
-          "yank"
-          "add_newline_above"
-          "move_line_up"
-          "replace_with_yanked"
-        ];
-        insert.C-A-k = [
-          "ensure_selections_forward"
-          "flip_selections"
-          "extend_to_line_bounds"
-          "extend_char_right"
-          "extend_char_left"
-          "yank"
-          "add_newline_above"
-          "move_line_up"
-          "replace_with_yanked"
-        ];
-
-        normal.A-h = "goto_line_start";
-        select.A-h = "goto_line_start";
-        insert.A-h = "goto_line_start";
-
-        normal.A-l = "goto_line_end";
-        select.A-l = "goto_line_end";
-        insert.A-l = "goto_line_end";
-
-        normal.H = "expand_selection";
-        select.H = "expand_selection";
-
-        normal.L = "shrink_selection";
-        select.L = "shrink_selection";
-
-        normal.J = "select_next_sibling";
-        select.J = "select_next_sibling";
-
-        normal.K = "select_prev_sibling";
-        select.K = "select_prev_sibling";
-
-        # nicer selections
-        normal.esc = [
-          "collapse_selection"
-          "keep_primary_selection"
-        ];
-        normal.i = [
-          "collapse_selection"
-          "insert_mode"
-        ];
-        normal.a = [
-          "collapse_selection"
-          "append_mode"
-        ];
-
-        select.i = [
-          "collapse_selection"
-          "insert_mode"
-        ];
-        select.a = [
-          "collapse_selection"
-          "append_mode"
-        ];
-
-        normal.X = "extend_line_above";
-        select.X = "extend_line_above";
-
-        # commands
-        normal.C-r = [
-          ":config-reload"
-          ":reload"
-        ];
-        select.C-r = [
-          ":config-reload"
-          ":reload"
-        ];
-        insert.C-r = [
-          ":config-reload"
-          ":reload"
-        ];
-
-        normal.C-q = [ ":quit" ];
-        select.C-q = [ ":quit" ];
-        insert.C-q = [ ":quit" ];
-
-        # clipboard
-        normal.C-s = [ ":w" ];
-        select.C-s = [ ":w" ];
-        insert.C-s = [ ":w" ];
-
-        normal.C-c = [ ":clipboard-yank" ];
-        select.C-c = [ ":clipboard-yank" ];
-        insert.C-c = [ ":clipboard-yank" ];
-
-        normal.C-x = [
-          ":clipboard-yank"
-          "delete_selection_noyank"
-        ];
-        select.C-x = [
-          ":clipboard-yank"
-          "delete_selection_noyank"
-        ];
-        insert.C-x = [
-          ":clipboard-yank"
-          "delete_selection_noyank"
-        ];
-
-        normal.C-v = [
-          ":clipboard-paste-after"
-          "collapse_selection"
-        ];
-        select.C-v = [
-          ":clipboard-paste-replace"
-          "collapse_selection"
-        ];
-        insert.C-v = [
-          ":clipboard-paste-after"
-          "collapse_selection"
-        ];
-
-        normal.C-V = [
-          ":clipboard-paste-before"
-          "collapse_selection"
-        ];
-        select.C-V = [
-          ":clipboard-paste-replace"
-          "collapse_selection"
-        ];
-        insert.C-V = [
-          ":clipboard-paste-before"
-          "collapse_selection"
-        ];
-
-        normal.C-z = [
-          "undo"
-          "collapse_selection"
-        ];
-        select.C-z = [
-          "undo"
-          "collapse_selection"
-        ];
-        insert.C-z = [
-          "undo"
-          "collapse_selection"
-        ];
-
-        normal.C-Z = [ "redo" ];
-        select.C-Z = [ "redo" ];
-        insert.C-Z = [ "redo" ];
-
-        # disable arrows
-        normal.A-up = "no_op";
-        select.A-up = "no_op";
-        insert.A-up = "no_op";
-
-        normal.A-down = "no_op";
-        select.A-down = "no_op";
-        insert.A-down = "no_op";
-
-        normal.A-left = "no_op";
-        select.A-left = "no_op";
-        insert.A-left = "no_op";
-
-        normal.A-right = "no_op";
-        select.A-right = "no_op";
-        insert.A-right = "no_op";
-
-        normal.A-S-down = "no_op";
-        select.A-S-down = "no_op";
-        insert.A-S-down = "no_op";
+      
+      keys = let
+        all = {
+          # hjkl
+          A-j = [ "ensure_selections_forward" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "delete_selection" "add_newline_below" "move_line_down" "replace_with_yanked" ];
+          A-k = [ "ensure_selections_forward" "flip_selections" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "delete_selection" "move_line_up" "add_newline_above" "move_line_up" "replace_with_yanked" ];
+          A-J = [ "extend_line_down" "extend_to_line_bounds" ];
+          A-K = [ "extend_line_up" "extend_to_line_bounds" ];
+          C-A-j = [ "ensure_selections_forward" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "yank" "add_newline_below" "move_line_down" "replace_with_yanked" ];
+          C-A-k = [ "ensure_selections_forward" "flip_selections" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "yank" "add_newline_above" "move_line_up" "replace_with_yanked" ];
+          A-h = [ "goto_line_start" ];
+          A-l = [ "goto_line_end" ];
+          # cmds
+          C-r = [ ":config-reload" ":reload" ];
+          C-q = [ ":quit" ];
+          C-s = [ ":w" ];
+          "C-/" = [ "toggle_comments" ];
+          # clipboard
+          C-c = [ ":clipboard-yank" ];
+          C-x = [ ":clipboard-yank" "delete_selection_noyank" ];
+          C-v = [ ":clipboard-paste-after" "collapse_selection" ];
+          C-V = [ ":clipboard-paste-before" "collapse_selection" ];
+          C-z = [ "undo" "collapse_selection" ];
+          C-Z = [ "redo" ];
+          # no alt
+          A-up = "no_op";
+          A-down = "no_op";
+          A-left = "no_op";
+          A-right = "no_op";
+          A-S-down = "no_op";
+        };
+        norsel = {
+          i = [ "collapse_selection" "insert_mode" ];
+          a = [ "collapse_selection" "append_mode" ];
+          H = "expand_selection";
+          L = "shrink_selection";
+          J = "select_next_sibling";
+          K = "select_prev_sibling";
+          X = "extend_line_above";
+        };
+      in {
+        normal = all // norsel // { esc = [ "collapse_selection" "keep_primary_selection" ]; };
+        select = all // norsel // { C-v = [ ":clipboard-paste-replace" "collapse_selection" ]; C-V = [ ":clipboard-paste-replace" "collapse_selection" ]; };
+        insert = all;
       };
     };
     themes = {
       catppuccin_mocha = {
         inherits = "catppuccin_mocha";
-        "ui.background" = {
-          fg = "text";
-        }; # disable background fill
+        ui.background.fg = "text";  # disable background fill
       };
     };
   };
-
-  programs.yazi = {
-    enable = true;
-    enableFishIntegration = true;
-    shellWrapperName = "l";
-    # TODO yaziPlugins
-  };
-
-  programs.gh = {
-    enable = true;
-    gitCredentialHelper = {
-      enable = true;
-    };
-  };
-
-  # Packages that should be installed to the user profile.
-  home.packages = with pkgs; [
-    # rust utils
-    ripgrep
-    fd
-
-    # git
-    gh
-    lazygit # TODO add git: paging: colorArg: always \n pager: delta --dark --file-style none --hyperlinks --paging=never
-
-    # code
-    gleam
-    rustup
-    bun
-    go
-    uv
-  ];
-
-  programs.git = {
-    delta = {
-      enable = true;
-      # TODO https://dandavison.github.io/delta/configuration.html
-    };
-    userName = "cysabi";
-    userEmail = "47790183+cysabi@users.noreply.github.com";
-  };
-  home.stateVersion = "25.05";
 }
