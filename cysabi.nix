@@ -39,18 +39,20 @@
         command mkdir -v $argv
         cd $argv
       '';
-      nixos = ''
+      tilde = ''
+        # check for tilde
+        if not test -d /etc/nixos/.git
+            echo "tilde doesn't exist! writing..."
+            sudo rm -rfv /etc/nixos
+            git clone https://github.com/cysabi/tilde ~/_tilde
+            sudo mv ~/_tilde /etc/nixos
+        end
+        # subcommands
         if test $argv[1] = get
             nix profile install nixpkgs#$argv[2]
         else if test $argv[1] = reload
             sudo nixos-rebuild switch
         else if test $argv[1] = open
-            if not test -d /etc/nixos/.git
-                echo "cysabi/nixos doesn't exist! writing..."
-                sudo rm -rfv /etc/nixos
-                git clone https://github.com/cysabi/nixos ~/._nixos
-                sudo mv ~/._nixos /etc/nixos
-            end
             sudo hx --config ~/.config/helix/config.toml /etc/nixos
         end
       '';
