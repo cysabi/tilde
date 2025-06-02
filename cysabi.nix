@@ -48,7 +48,9 @@
             sudo mv ~/_tilde /etc/nixos
         end
         # subcommands
-        if test $argv[1] = get
+        if not set -q argv[1]
+            echo "(｡•̀ᴗ-)✧ ☆ ～"
+        else if test $argv[1] = get
             nix profile install nixpkgs#$argv[2]
         else if test $argv[1] = reload
             sudo nixos-rebuild switch
