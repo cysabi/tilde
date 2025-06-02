@@ -17,7 +17,7 @@
     enable = true;
     shellInit = "set -g fish_greeting ''";
     shellAliases = {
-      l = "fish -c l";
+      l = "yy";
       g = "lazygit";
       cat = "bat";
       grep = "rg";
@@ -97,7 +97,6 @@
   programs.yazi = {
     enable = true;
     enableFishIntegration = true;
-    shellWrapperName = "l";
     # TODO yaziPlugins
   };
 
