@@ -48,7 +48,8 @@
             if test -d /etc/nixos/.git
                 echo "cysabi/nixos doesn't exist! writing..."
                 sudo rm -rfv /etc/nixos
-                git clone https://github.com/cysabi/nixos /etc/nixos
+                git clone https://github.com/cysabi/nixos ~/._nixos
+                sudo mv ~/._nixos /etc/nixos
             end
             sudo hx --config ~/.config/helix/config.toml /etc/nixos
         end
