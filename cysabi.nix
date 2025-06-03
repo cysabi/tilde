@@ -9,9 +9,14 @@
     gleam
     rustup
     bun
-    go
+    nodejs_22
     uv
   ];
+
+  programs.go = {
+    enable = true;
+    goPath = ".local/share/go";
+  };
 
   programs.fish = {
     enable = true;
@@ -51,7 +56,7 @@
         if not set -q argv[1]
             echo "(｡•̀ᴗ-)✧ ☆ ～"
         else if test $argv[1] = get
-            nix profile install nixpkgs#$argv[2]
+            nix profile install (for pkg in $argv[2..] ; echo "nixpkgs#"$pkg; end)
         else if test $argv[1] = reload
             sudo nixos-rebuild switch
         else if test $argv[1] = open
@@ -228,7 +233,7 @@
           A-h = [ "goto_line_start" ];
           A-l = [ "goto_line_end" ];
           # cmds
-          C-r = [ ":config-reload" ":reload" ];
+          C-r = [ ":config-reload" ":reload" ":lsp-restart" ];
           C-q = [ ":quit" ];
           C-s = [ ":w" ];
           "C-/" = [ "toggle_comments" ];
