@@ -13,6 +13,14 @@
     uv
   ];
 
+  catppuccin = {
+    flavor = "mocha";
+    enable = true;
+    accent = "lavender";
+    helix.enable = false;
+    yazi.enable = false;  # await https://github.com/catppuccin/yazi/pull/25
+  };
+
   programs.go = {
     enable = true;
     goPath = ".local/share/go";
@@ -117,7 +125,6 @@
     enable = true;
     config = {
       paging = "never";
-      theme = "base16";
       plain = true;
     };
   };
