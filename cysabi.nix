@@ -4,7 +4,6 @@
   home.stateVersion = "25.05";
   home.username = "cysabi";
   home.homeDirectory = "/home/cysabi";
-  home.shell.enableFishIntegration = true;
   home.packages = with pkgs; [
     gleam
     rustup
@@ -15,10 +14,9 @@
 
   catppuccin = {
     flavor = "mocha";
-    enable = true;
     accent = "lavender";
+    enable = true;
     helix.enable = false;
-    yazi.enable = false;  # await https://github.com/catppuccin/yazi/pull/25
   };
 
   programs.go = {
@@ -82,7 +80,7 @@
         if string match -rq "^/mnt/c/" $FP
             set -f FP (string replace -r "^/mnt/c/" "C:/" $FP)
         else
-            set -f FP (string join "" "//wsl.localhost/Ubuntu" $FP)
+            set -f FP (string join "" "//wsl.localhost/NixOS" $FP)
         end
 
         set -f FP (string replace -a "/" "\\" $FP)
@@ -110,13 +108,11 @@
   programs.yazi = {
     enable = true;
     enableFishIntegration = true;
-    # TODO yaziPlugins
   };
 
   programs.eza = {
     enable = true;
     extraOptions = [
-      "-1TL0"
       "--group-directories-first"
     ];
   };
@@ -276,7 +272,7 @@
     themes = {
       catppuccin_mocha = {
         inherits = "catppuccin_mocha";
-        ui.background.fg = "text";  # disable background fill
+        ui.background = { fg = "text"; };  # disable background fill
       };
     };
   };
