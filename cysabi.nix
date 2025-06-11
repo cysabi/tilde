@@ -238,8 +238,8 @@
           # cmds
           C-r = [ ":config-reload" ":reload" ":lsp-restart" ];
           C-q = [ ":quit" ];
-          C-s = [ ":w" ];
-          "C-/" = [ "toggle_comments" ];
+          C-s = [ ":w", ":format" ];
+          "#" = [ "toggle_comments" ];
           # clipboard
           C-c = [ ":clipboard-yank" ];
           C-x = [ ":clipboard-yank" "delete_selection_noyank" ];
