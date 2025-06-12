@@ -12,9 +12,12 @@ function tilde
         nix profile install (for pkg in $argv[2..] ; echo "nixpkgs#"$pkg; end)
     else if test $argv[1] = reload
         sudo nixos-rebuild switch
-    else if test $argv[1] = open
-        sudo hx --config ~/.config/helix/config.toml /etc/nixos
+        sudo cp -a /etc/nixos/.config/. ~/.config/
     else if test $argv[1] = source
         sudo cp -a /etc/nixos/.config/. ~/.config/
+    else if test $argv[1] = open
+        sudo hx --config ~/.config/helix/config.toml /etc/nixos
+    else
+        echo "（ゝ。∂）"
     end
 end
