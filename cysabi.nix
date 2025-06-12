@@ -12,106 +12,22 @@
     uv
   ];
 
-  catppuccin = {
-    flavor = "mocha";
-    accent = "lavender";
-    enable = true;
-    helix.enable = false;
-  };
-
   programs.go = {
     enable = true;
     goPath = ".local/share/go";
   };
 
-  programs.fish = {
-    enable = true;
-    shellInit = "set -g fish_greeting ''";
-    shellAliases = {
-      l = "yy";
-      g = "lazygit";
-      cat = "bat";
-      grep = "rg";
-      find = "fd";
-      path = "echo \"#  \"; printf \"%s\\n\" (string split \\n $PATH)";
-      neo = "macchina";
-    };
-    shellAbbrs = {
-      dotdot = {
-        regex = "^\\.\\.+$";
-        function = "dotdotdot";
-      };
-    };
-    functions = {
-      dotdotdot = ''
-        echo cd (string repeat -n (math (string length -- $argv[1]) - 1) ../)
-      '';
-      md = ''
-        command mkdir -v $argv
-        cd $argv
-      '';
-      tilde = ''
-        # check for tilde
-        if not test -d /etc/nixos/.git
-            echo "tilde doesn't exist! writing..."
-            sudo rm -rfv /etc/nixos
-            git clone https://github.com/cysabi/tilde ~/_tilde
-            sudo mv ~/_tilde /etc/nixos
-        end
-        # subcommands
-        if not set -q argv[1]
-            echo "(｡•̀ᴗ-)✧ ☆ ～"
-        else if test $argv[1] = get
-            nix profile install (for pkg in $argv[2..] ; echo "nixpkgs#"$pkg; end)
-        else if test $argv[1] = reload
-            sudo nixos-rebuild switch
-        else if test $argv[1] = open
-            sudo hx --config ~/.config/helix/config.toml /etc/nixos
-        end
-      '';
-      o = ''
-        # get the directory to open
-        set -f FP (realpath .)
-        if test (count $argv) = 1
-            set -f FP (realpath $argv)
-        end
-
-        # translate path to valid file explorer path
-        if string match -rq "^/mnt/c/" $FP
-            set -f FP (string replace -r "^/mnt/c/" "C:/" $FP)
-        else
-            set -f FP (string join "" "//wsl.localhost/NixOS" $FP)
-        end
-
-        set -f FP (string replace -a "/" "\\" $FP)
-        explorer.exe $FP
-      '';
-    };
-  };
-
-  programs.starship = {
-    enable = true;
-    enableFishIntegration = true;
-    settings = {
-      directory = {
-        truncation_length = 64;
-        truncate_to_repo = false;
-      };
-    };
-  };
-
   programs.atuin = {
     enable = true;
-    enableFishIntegration = true;
   };
 
   programs.yazi = {
     enable = true;
-    enableFishIntegration = true;
   };
 
   programs.eza = {
     enable = true;
+    enableFishIntegration = false;
     extraOptions = [
       "--group-directories-first"
     ];
@@ -238,7 +154,7 @@
           # cmds
           C-r = [ ":config-reload" ":reload" ":lsp-restart" ];
           C-q = [ ":quit" ];
-          C-s = [ ":w", ":format" ];
+          C-s = [ ":w" ":format" ];
           "#" = [ "toggle_comments" ];
           # clipboard
           C-c = [ ":clipboard-yank" ];
@@ -272,7 +188,7 @@
     themes = {
       catppuccin_mocha = {
         inherits = "catppuccin_mocha";
-        ui.background = { fg = "text"; };  # disable background fill
+        ui.background = { fg = "text"; bg = null; };  # disable background fill
       };
     };
   };
