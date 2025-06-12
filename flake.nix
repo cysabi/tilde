@@ -2,7 +2,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
-    catppuccin.url = "github:catppuccin/nix";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -14,7 +13,6 @@
       self,
       nixpkgs,
       nixos-wsl,
-      catppuccin,
       home-manager,
       ...
     }@inputs:
@@ -111,7 +109,6 @@
                 system.stateVersion = "25.05";
               }
             )
-            catppuccin.nixosModules.catppuccin
             home-manager.nixosModules.home-manager
             {
               home-manager.extraSpecialArgs.outPath = self.outPath;
@@ -120,7 +117,6 @@
               home-manager.users.cysabi = {
                 imports = [
                   ./cysabi.nix
-                  catppuccin.homeModules.catppuccin
                 ];
               };
             }

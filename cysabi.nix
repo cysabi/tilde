@@ -188,7 +188,7 @@
     themes = {
       catppuccin_mocha = {
         inherits = "catppuccin_mocha";
-        ui.background = { fg = "text"; bg = null; };  # disable background fill
+        ui.background.bg = {};  # disable background fill
       };
     };
   };

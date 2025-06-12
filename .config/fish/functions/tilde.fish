@@ -14,5 +14,7 @@ function tilde
         sudo nixos-rebuild switch
     else if test $argv[1] = open
         sudo hx --config ~/.config/helix/config.toml /etc/nixos
+    else if test $argv[1] = source
+        sudo cp -a /etc/nixos/.config/. ~/.config/
     end
 end

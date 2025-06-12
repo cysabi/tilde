@@ -1,5 +1,8 @@
-set -g fish_greeting ""
 fish_config theme choose "Catppuccin Mocha"
+
+set -g fish_greeting ""
+set -g hydro_multiline true
+set -g fish_prompt_pwd_dir_length 0
 
 abbr --add dotdot --regex '^\.\.+$' --function dotdotdot
 
