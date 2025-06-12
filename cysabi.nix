@@ -188,7 +188,7 @@
     themes = {
       catppuccin_mocha = {
         inherits = "catppuccin_mocha";
-        ui.background.bg = {};  # disable background fill
+        ui.background.bg = {};  # FIXME disable background fill
       };
     };
   };
