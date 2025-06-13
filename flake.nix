@@ -48,13 +48,11 @@
                 };
 
                 # shell
-                programs.fish = {
-                  enable = true;
-                };
                 users.defaultUserShell = pkgs.fish;
 
                 # packages
                 environment.systemPackages = with pkgs; [
+                  
                   # flakes
                   git
                   wget
@@ -76,6 +74,9 @@
                   ipcalc # it is a calculator for the IPv4/v6 addresses
 
                   # misc
+                  bat
+                  fd
+                  ripgrep
                   macchina
                   delta
                   file

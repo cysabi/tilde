@@ -155,7 +155,6 @@
           C-r = [ ":config-reload" ":reload" ":lsp-restart" ];
           C-q = [ ":quit" ];
           C-s = [ ":w" ":format" ];
-          "#" = [ "toggle_comments" ];
           # clipboard
           C-c = [ ":clipboard-yank" ];
           C-x = [ ":clipboard-yank" "delete_selection_noyank" ];
@@ -178,17 +177,12 @@
           J = "select_next_sibling";
           K = "select_prev_sibling";
           X = "extend_line_above";
+          "#" = [ "toggle_comments" ];
         };
       in {
         normal = all // norsel // { esc = [ "collapse_selection" "keep_primary_selection" ]; };
         select = all // norsel // { C-v = [ ":clipboard-paste-replace" "collapse_selection" ]; C-V = [ ":clipboard-paste-replace" "collapse_selection" ]; };
         insert = all;
-      };
-    };
-    themes = {
-      catppuccin_mocha = {
-        inherits = "catppuccin_mocha";
-        ui.background.bg = {};  # FIXME disable background fill
       };
     };
   };

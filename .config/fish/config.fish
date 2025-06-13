@@ -11,10 +11,8 @@ alias grep rg
 alias find fd
 alias cat 'bat --theme=base16'
 alias eza 'eza --group-directories-first'
+alias l yy
 alias ls eza
-alias la 'eza -a'
-alias ll 'eza -l'
-alias lla 'eza -la'
 alias lt 'eza -T'
 alias path 'echo "#  "; printf "%s\n" (string split \n $PATH)'
 alias neo macchina
