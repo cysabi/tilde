@@ -20,7 +20,7 @@ function tilde
     else if test $argv[1] = source
         cd ~/.local/share/tilde
         git pull
-        cp -avs ~/.local/share/tilde/.config/. ~/.config/
+        cp -avfs ~/.local/share/tilde/.config/. ~/.config/
 
     else if test $argv[1] = open
         hx ~/.local/share/tilde
