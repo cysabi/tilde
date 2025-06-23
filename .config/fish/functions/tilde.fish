@@ -18,7 +18,10 @@ function tilde
         sudo cp -a /etc/nixos/.config/. ~/.config/
 
     else if test $argv[1] = source
-        cp -a ~/.local/share/tilde/.config/. ~/.config/
+        cd ~/.local/share/tilde
+        git pull
+        rm -vrf ~/.config/
+        cp -va ~/.local/share/tilde/.config/. ~/.config/
 
     else if test $argv[1] = open
         $EDITOR ~/.local/share/tilde
