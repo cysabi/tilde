@@ -10,7 +10,7 @@ function tilde
         echo "(｡•̀ᴗ-)✧ ☆ ～"
 
     else if test $argv[1] = install
-        sudo pacman -Syu base base-devel fish helix eza bat ripgrep macchina
+        sudo pacman -Syu base base-devel yay fish helix atuin eza bat ripgrep macchina
 
     else if test $argv[1] = reload
         sudo nixos-rebuild switch
