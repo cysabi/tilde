@@ -22,7 +22,9 @@
     email = 47790183+cysabi@users.noreply.github.com
 
 [credential "https://github.com"]
-    helper = gh auth git-credential
+    helper =
+    helper = !/usr/bin/gh auth git-credential
 
 [credential "https://gist.github.com"]
-    helper = gh auth git-credential
+    helper =
+    helper = !/usr/bin/gh auth git-credential
