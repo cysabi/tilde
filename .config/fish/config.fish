@@ -7,14 +7,14 @@ set -gx C = "/mnt/c/Users/cysabi";
 
 set fish_greeting ""
 set fish_prompt_pwd_dir_length 255
-set hydro_color_pwd $fish_color_cwd
-set hydro_color_git $fish_pager_color_prefix
-set hydro_color_start $fish_color_host
-set hydro_color_error $fish_color_error
-set hydro_color_prompt $fish_color_user
-set hydro_color_duration $fish_color_end
 set hydro_symbol_start "\n"
 set hydro_multiline true
+set hydro_color_pwd $fish_color_host
+set hydro_color_git $fish_color_cwd
+set hydro_color_start $fish_color_host_remote
+set hydro_color_error $fish_color_error
+set hydro_color_prompt $fish_color_user
+set hydro_color_duration $fish_color_operator
 
 alias eza 'eza --group-directories-first -TL1'
 

@@ -24,7 +24,7 @@ function tilde
         cp -va ~/.local/share/tilde/.config/. ~/.config/
 
     else if test $argv[1] = open
-        $EDITOR ~/.local/share/tilde
+        hx ~/.local/share/tilde
 
     else
         echo "（ゝ。∂）"
