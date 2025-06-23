@@ -6,7 +6,7 @@ set -gx COLORTERM = "truecolor";
 set -gx C = "/mnt/c/Users/cysabi";
 
 set fish_greeting ""
-set fish_prompt_pwd_dir_length 0
+set fish_prompt_pwd_dir_length 255
 set hydro_color_pwd $fish_color_cwd
 set hydro_color_git $fish_pager_color_prefix
 set hydro_color_start $fish_color_host
