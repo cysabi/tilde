@@ -9,7 +9,7 @@ function o
     if string match -rq "^/mnt/c/" $FP
         set -f FP (string replace -r "^/mnt/c/" "C:/" $FP)
     else
-        set -f FP (string join "" "//wsl.localhost/NixOS" $FP)
+        set -f FP (string join "" "//wsl.localhost/$WSL_DISTRO_NAME" $FP)
     end
 
     set -f FP (string replace -a "/" "\\" $FP)

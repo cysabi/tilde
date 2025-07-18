@@ -1,7 +1,7 @@
 function tilde
 
     if not test -d ~/.local/share/tilde
-        echo "tilde doesn't exist! writing..."
+        echo "(｡- .•) tilde doesn't exist! writing..."
         git clone https://github.com/cysabi/tilde ~/.local/share/tilde
     end
 
@@ -9,9 +9,8 @@ function tilde
     if not set -q argv[1]
         echo "(｡•̀ᴗ-)✧ ☆ ～"
 
-    else if test $argv[1] = install
-        # yay fish
-        sudo pacman -Syu base base-devel helix atuin lf eza bat ripgrep macchina
+    # else if test $argv[1] = install
+    #   yay fish base base-devel helix atuin lf eza bat ripgrep macchina
 
     else if test $argv[1] = reload
         sudo nixos-rebuild switch
