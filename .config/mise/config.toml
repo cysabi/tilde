@@ -1,0 +1,16 @@
+[tools]
+node = "22"
+bun = "latest"
+go = "latest"
+uv = "latest"
+rust = "latest"
+gleam = "latest"
+
+# term
+helix = "latest"
+yazi = "latest"
+fzf = "latest"
+fd = "latest"
+bat = "latest"
+ripgrep = "latest"
+eza = "latest"
