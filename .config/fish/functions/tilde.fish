@@ -9,17 +9,17 @@ function tilde
     if not set -q argv[1]
         echo "(｡•̀ᴗ-)✧ ☆ ～"
 
-    # else if test $argv[1] = install
-    #   yay fish base base-devel helix atuin lf eza bat ripgrep macchina
-
-    else if test $argv[1] = reload
-        sudo nixos-rebuild switch
-        sudo cp -a /etc/nixos/.config/. ~/.config/
+    else if test $argv[1] = install
+        git clone https://aur.archlinux.org/paru.git
+        cd paru
+        makepkg -si
+        paru -Sua atuin lf eza bat ripgrep macchina
 
     else if test $argv[1] = source
         cd ~/.local/share/tilde
         git pull
         cp -avfs ~/.local/share/tilde/.config/. ~/.config/
+        fish
 
     else if test $argv[1] = open
         hx ~/.local/share/tilde
