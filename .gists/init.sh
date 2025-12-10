@@ -9,5 +9,5 @@ visudo # uncomment %wheel ALL=(ALL:ALL) NOPASSWD: ALL
 wsl.exe --manage archlinux --set-default-user cysabi
 
 # inside arch as cysabi -- run tilde
-curl https://raw.githubusercontent.com/cysabi/tilde/refs/heads/main/.config/fish/functions/tilde.fish | source
+curl https://raw.githubusercontent.com/cysabi/tilde/HEAD/.config/fish/functions/tilde.fish | source
 tilde
