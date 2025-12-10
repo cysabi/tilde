@@ -1,7 +1,7 @@
 fish_config theme choose "Catppuccin Mocha"
-abbr --add dotdot --regex '^\.\.+$' --function dotdotdot
+abbr --add dotdot --regex '^\.\.+$' --function dotdotdo
 
-set -gx EDITOR "helix";
+set -gx EDITOR "hx";
 set -gx COLORTERM "truecolor";
 set -gx C "/mnt/c/Users/cysabi";
 
@@ -22,5 +22,10 @@ alias grep rg
 alias ls eza
 alias lt 'eza -T'
 
-alias path 'echo "#  "; printf "%s\n" (string split \n $PATH)'
+alias pathvar 'echo "#  "; printf "%s\n" (string split \n $PATH)'
 alias neo macchina
+
+set -gx MISE_SHELL fish
+set -gx __MISE_ORIG_PATH $PATH
+
+~/.local/bin/mise activate fish | source
