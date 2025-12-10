@@ -35,7 +35,7 @@ function _atuin_search
     # In fish 3.4 and above we can use `"$(some command)"` to keep multiple lines separate;
     # but to support fish 3.3 we need to use `(some command | string collect)`.
     # https://fishshell.com/docs/current/relnotes.html#id24 (fish 3.4 "Notable improvements and fixes")
-    set -l ATUIN_H (ATUIN_SHELL_FISH=t ATUIN_LOG=error ATUIN_QUERY=(commandline -b) atuin search --keymap-mode=$keymap_mode $argv -i 3>&1 1>&2 2>&3 | string collect)
+    set -l ATUIN_H (ATUIN_SHELL=fish ATUIN_LOG=error ATUIN_QUERY=(commandline -b) atuin search --keymap-mode=$keymap_mode $argv -i 3>&1 1>&2 2>&3 | string collect)
 
     if test -n "$ATUIN_H"
         if string match --quiet '__atuin_accept__:*' "$ATUIN_H"
@@ -70,13 +70,18 @@ function _atuin_bind_up
     end
 end
 
-bind \cr _atuin_search
-
-bind \eOA _atuin_bind_up
-bind \e\[A _atuin_bind_up
-if bind -M insert > /dev/null 2>&1
-bind -M insert \cr _atuin_search
-bind -M insert -k up _atuin_bind_up
-bind -M insert \eOA _atuin_bind_up
-bind -M insert \e\[A _atuin_bind_up
+if string match -q '4.*' $version
+    bind ctrl-r _atuin_search
+    bind up _atuin_bind_up
+    if bind -M insert >/dev/null 2>&1
+        bind -M insert ctrl-r _atuin_search
+        bind -M insert up _atuin_bind_up
+    end
+else
+    bind \cr _atuin_search
+    bind -k up _atuin_bind_up; bind \eOA _atuin_bind_up; bind \e\[A _atuin_bind_up
+    if bind -M insert >/dev/null 2>&1
+        bind -M insert \cr _atuin_search
+        bind -M insert -k up _atuin_bind_up; bind -M insert \eOA _atuin_bind_up; bind -M insert \e\[A _atuin_bind_up
+    end
 end
