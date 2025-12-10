@@ -15,17 +15,11 @@ set hydro_color_error f38ba8
 set hydro_color_prompt 94e2d5
 set hydro_color_duration fab387
 
+alias hx helix
 alias eza 'eza --group-directories-first -TL1'
-
-alias cat bat
-alias grep rg
 alias ls eza
 alias lt 'eza -T'
-
-alias pathvar 'echo "#  "; printf "%s\n" (string split \n $PATH)'
+alias cat bat
+alias grep rg
 alias neo macchina
-
-set -gx MISE_SHELL fish
-set -gx __MISE_ORIG_PATH $PATH
-
-~/.local/bin/mise activate fish | source
+alias pathvar 'echo "#  "; printf "%s\n" (string split \n $PATH)'
