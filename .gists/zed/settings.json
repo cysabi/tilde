@@ -1,0 +1,19 @@
+{
+  "tab_size": 2,
+  "icon_theme": "Zed (Default)",
+  "gutter": {
+    "line_numbers": false
+  },
+  "buffer_font_size": 12.0,
+  "disable_ai": true,
+  "base_keymap": "VSCode",
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "Catppuccin Mocha (lavender)"
+  }
+}

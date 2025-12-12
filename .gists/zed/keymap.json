@@ -1,0 +1,37 @@
+[
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-shift-d": [
+        "editor::SelectPrevious",
+        {
+          "replace_newest": false
+        }
+      ]
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-shift-d": null
+    }
+  },
+  {
+    "context": "(Editor && mode == full)",
+    "bindings": {
+      "ctrl-enter": "editor::GoToImplementation"
+    }
+  },
+  {
+    "context": "Editor && mode == full",
+    "bindings": {
+      "alt-enter": "editor::FindAllReferences"
+    }
+  },
+  {
+    "context": "!ContextEditor > (Editor && mode == full)",
+    "bindings": {
+      "alt-enter": "editor::OpenExcerpts"
+    }
+  }
+]
