@@ -1,5 +1,5 @@
 fish_config theme choose "Catppuccin Mocha"
-abbr --add dotdot --regex '^\.\.+$' --function dotdotdo
+abbr --add dotdot --regex '^\.\.+$' --function dotdotdot
 
 set -gx EDITOR "hx";
 set -gx COLORTERM "truecolor";
