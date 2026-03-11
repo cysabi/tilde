@@ -13,7 +13,7 @@ function tilde
         git clone https://aur.archlinux.org/paru.git
         cd paru
         makepkg -si
-        paru -Sua atuin lf eza bat ripgrep macchina
+        paru -Sua atuin lf eza bat ripgrep macchina gitu
 
     else if test $argv[1] = source
         cd ~/.local/share/tilde

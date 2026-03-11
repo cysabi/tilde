@@ -1,9 +1,18 @@
 {
   "$help": "https://aka.ms/terminal-documentation",
   "$schema": "https://aka.ms/terminal-profiles-schema",
+  "actions": [
+    {
+      "command": {
+        "action": "splitPane",
+        "split": "auto",
+        "splitMode": "duplicate"
+      }
+    }
+  ],
   "centerOnLaunch": true,
-  "copyOnSelect": false,
   "copyFormatting": "none",
+  "copyOnSelect": false,
   "useAcrylicInTabRow": true,
   "windowingBehavior": "useExisting",
   "defaultProfile": "{50350732-e1d4-547b-bcd5-ea264623c778}",
