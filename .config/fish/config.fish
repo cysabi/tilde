@@ -25,3 +25,5 @@ set -gx EDITOR "helix"
 set -gx APP "/mnt/c/Users/cyrene/source/repos/phaze-app"
 set -gx COLORTERM "truecolor";
 set -gx C "/mnt/c/Users/cyrene";
+set -gx ANDROID_HOME "/opt/android-sdk"
+export PATH="$HOME/.local/bin:$PATH"

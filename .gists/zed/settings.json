@@ -1,19 +1,34 @@
 {
+  "show_signature_help_after_edits": true,
+  "auto_signature_help": false,
+  "helix_mode": true,
+  "terminal": {
+    "dock": "right",
+  },
+  "formatter": "language_server",
+  "language_servers": [
+    "...",
+    "!typescript-language-server",
+    "!tailwindcss-language-server"
+  ],
+  "scrollbar": {
+    "git_diff": true,
+  },
   "tab_size": 2,
   "icon_theme": "Zed (Default)",
   "gutter": {
-    "line_numbers": false
+    "line_numbers": false,
   },
   "buffer_font_size": 12.0,
   "disable_ai": true,
   "base_keymap": "VSCode",
   "telemetry": {
     "diagnostics": false,
-    "metrics": false
+    "metrics": false,
   },
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "Catppuccin Mocha (lavender)"
-  }
+    "dark": "Catppuccin Mocha (lavender)",
+  },
 }
