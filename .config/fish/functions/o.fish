@@ -13,5 +13,5 @@ function o
     end
 
     set -f FP (string replace -a "/" "\\" $FP)
-    explorer.exe $FP
+    fpilot.exe $FP
 end
