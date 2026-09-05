@@ -6,6 +6,12 @@
     "dock": "right",
   },
   "formatter": "language_server",
+  "languages": {
+    "Rust": {
+      "tab_size": 4
+    }
+  },
+  "preferred_line_length": 1000,
   "language_servers": [
     "...",
     "!typescript-language-server",
