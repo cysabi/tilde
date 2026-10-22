@@ -14,6 +14,7 @@
   "copyFormatting": "none",
   "copyOnSelect": false,
   "useAcrylicInTabRow": true,
+  "experimental.scrollToZoom": false,
   "windowingBehavior": "useExisting",
   "defaultProfile": "{50350732-e1d4-547b-bcd5-ea264623c778}",
   "profiles": {
